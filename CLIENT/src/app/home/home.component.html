@@ -1,0 +1,18 @@
+<div class="home-container">
+  @if (!isUserLogged) {
+  <div class="non-logged-info-modal">
+    <h1>To display the content, you have to be logged in!</h1>
+    <p></p>
+
+    <div class="buttons-container">
+      <button routerLink="/sign-in" class="authentication-button">
+        Sign in
+      </button>
+      <button routerLink="/sign-up" class="authentication-button">
+        Sign up
+      </button>
+    </div>
+  </div>
+  }
+  <h1>HELLO</h1>
+</div>
