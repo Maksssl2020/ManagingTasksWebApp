@@ -7,6 +7,7 @@ export class IconsService {
   icons: { [key: string]: string } = {
     journal: 'bi bi-journal',
     user: 'bi bi-person',
+    logout: 'bi bi-box-arrow-left',
   };
 
   constructor() {}

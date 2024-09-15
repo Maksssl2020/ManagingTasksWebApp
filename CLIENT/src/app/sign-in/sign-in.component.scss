@@ -1,0 +1,32 @@
+.title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  font-size: 48px;
+  font-family: "Lato";
+  font-weight: 500;
+}
+
+label {
+  margin-left: 10px;
+}
+
+input.error {
+  border: 2px solid crimson;
+}
+
+label {
+  margin-left: 3px;
+}
+
+.error-message {
+  width: 100%;
+  text-align: center;
+  font-weight: 500;
+  color: crimson;
+  font-size: 24px;
+  font-family: "Lato";
+}

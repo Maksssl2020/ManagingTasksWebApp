@@ -16,21 +16,11 @@ namespace API.Controllers;
 public class AuthenticationController(ApplicationDbContext applicationDbContext, ITokenService tokenService) : ControllerBase
 {
     [HttpPost("register")]
-    public async Task<ActionResult<UserDto>> register(RegisterRequest registerRequest)
+    public async Task<ActionResult<UserDto>> Register(RegisterRequest registerRequest)
     {
-        if (await IsUsernameTaken(registerRequest.Username))
-        {
-            return BadRequest(string.Format("Username {0} is taken!", registerRequest.Username));
-        }
-
-        if (await IsEmailTaken(registerRequest.Email))
-        {
-            return BadRequest(string.Format("Email {0} is taken!", registerRequest.Email));
-        }
-
         using HMACSHA512 hmac = new();
 
-        User user = new User
+        User user = new()
         {
             Username = registerRequest.Username,
             Password = Convert.ToBase64String(hmac.ComputeHash(Encoding.UTF8.GetBytes(registerRequest.Password))),
@@ -81,13 +71,15 @@ public class AuthenticationController(ApplicationDbContext applicationDbContext,
         };
     }
 
-    private async Task<bool> IsUsernameTaken(string username)
+    [HttpPost("is-username-unique")]
+    public async Task<ActionResult<bool>> IsUsernameUnique(string username)
     {
-        return await applicationDbContext.Users.AnyAsync(user => user.Username.Equals(username));
+        return await applicationDbContext.Users.AnyAsync(user => !user.Username.Equals(username));
     }
 
-    private async Task<bool> IsEmailTaken(string email)
+    [HttpPost("is-email-unique")]
+    public async Task<ActionResult<bool>> IsEmailUnique(string email)
     {
-        return await applicationDbContext.Users.AnyAsync(user => user.Email.Equals(email));
+        return await applicationDbContext.Users.AnyAsync(user => !user.Email.Equals(email));
     }
 }
