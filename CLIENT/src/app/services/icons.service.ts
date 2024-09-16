@@ -8,6 +8,9 @@ export class IconsService {
     journal: 'bi bi-journal',
     user: 'bi bi-person',
     logout: 'bi bi-box-arrow-left',
+    edit: 'bi bi-pencil-square',
+    delete: 'bi bi-x-square',
+    cancel: 'bi bi-x-lg',
   };
 
   constructor() {}

@@ -2,15 +2,28 @@ import { NgClass } from '@angular/common';
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
-  FormBuilder,
   FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { debounceTime } from 'rxjs';
 import { AuthenticationService } from '../services/authentication.service';
-import { debounceTime, of } from 'rxjs';
+import { Router } from '@angular/router';
+
+function equalValues(firstControlName: string, secondControlName: string) {
+  return (control: AbstractControl) => {
+    const value1 = control.get(firstControlName)?.value;
+    const value2 = control.get(secondControlName)?.value;
+
+    if (value1 === value2) {
+      return null;
+    } else {
+      return { valuesNotEqual: true };
+    }
+  };
+}
 
 @Component({
   selector: 'app-sign-up',
@@ -22,37 +35,37 @@ import { debounceTime, of } from 'rxjs';
 export class SignUpComponent implements OnInit {
   private authenticationService = inject(AuthenticationService);
   private destroyRef = inject(DestroyRef);
+  private router = inject(Router);
 
   signUpForm = new FormGroup({
     username: new FormControl('', {
       validators: Validators.required,
       asyncValidators: (control) => {
-        if (this.authenticationService.checkUsername(control.value)) {
-          return of(null);
-        } else {
-          return of({ noUnique: true });
-        }
+        return this.authenticationService.checkUsername(control.value);
       },
+      updateOn: 'blur',
     }),
     email: new FormControl('', {
       validators: [Validators.required, Validators.email],
       asyncValidators: (control) => {
-        if (this.authenticationService.checkEmail(control.value)) {
-          return of(null);
-        } else {
-          return of({ noUnique: true });
-        }
+        return this.authenticationService.checkEmail(control.value);
       },
+      updateOn: 'blur',
     }),
-    passwords: new FormGroup({
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6),
-      ]),
-      confirmPassword: new FormControl('', {
-        validators: Validators.required,
-      }),
-    }),
+    passwords: new FormGroup(
+      {
+        password: new FormControl('', [
+          Validators.required,
+          Validators.minLength(6),
+        ]),
+        confirmPassword: new FormControl('', {
+          validators: Validators.required,
+        }),
+      },
+      {
+        validators: [equalValues('password', 'confirmPassword')],
+      }
+    ),
   });
 
   ngOnInit(): void {
@@ -84,49 +97,24 @@ export class SignUpComponent implements OnInit {
     if (this.signUpForm?.invalid) {
       console.log(this.signUpForm?.value);
       console.log(this.signUpForm.errors);
+      console.log(this.signUpForm.controls);
       return;
     }
 
-    this.authenticationService.register(this.signUpForm.value).subscribe({
+    const registerForm = {
+      username: this.signUpForm.value.username,
+      email: this.signUpForm.value.email,
+      password: this.signUpForm.value.passwords?.password,
+    };
+
+    this.authenticationService.register(registerForm).subscribe({
       next: (response) => {
         console.log(response);
+        this.router.navigate(['']);
       },
       error: (error) => {
         console.log(error);
       },
     });
-  }
-
-  get usernameIsInvalid() {
-    return (
-      this.signUpForm.controls.username.touched &&
-      this.signUpForm.controls.username.invalid
-    );
-  }
-
-  get emailIsInvalid() {
-    return (
-      this.signUpForm.controls.email.touched &&
-      this.signUpForm.controls.email.invalid
-    );
-  }
-
-  // get passwordIsInvalid() {
-  //   return (
-  //     this.signUpForm.controls.passwords.touched &&
-  //     this.signUpForm.controls.password.invalid
-  //   );
-  // }
-
-  get username() {
-    return this.signUpForm?.get('username');
-  }
-
-  get email() {
-    return this.signUpForm?.get('email');
-  }
-
-  get password() {
-    return this.signUpForm?.get('password');
   }
 }

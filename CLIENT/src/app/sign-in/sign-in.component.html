@@ -1,37 +1,39 @@
-<form (submit)="login()" autocomplete="off" class="form-container">
-  <div class="title-container">
-    <h1>Sign In</h1>
-    <p class="line"></p>
-  </div>
-
-  <div class="credentials-container">
-    <div class="credentials-input-container">
-      <label>Username</label>
-      <input
-        [(ngModel)]="model.username"
-        [ngClass]="{ error: errorMessage }"
-        name="username"
-        autocomplete="off"
-        type="text"
-        class="credentials-input"
-      />
-    </div>
-    <div class="credentials-input-container">
-      <label>Password</label>
-      <input
-        [(ngModel)]="model.password"
-        [ngClass]="{ error: errorMessage }"
-        name="password"
-        autocomplete="off"
-        type="password"
-        class="credentials-input"
-      />
+<div class="page-container">
+  <form (submit)="login()" autocomplete="off" class="form-container">
+    <div class="title-container">
+      <h1>Sign In</h1>
+      <p class="line"></p>
     </div>
 
-    @if (errorMessage) {
-    <p class="error-message">{{ errorMessage }}</p>
-    }
-  </div>
+    <div class="credentials-container">
+      <div class="credentials-input-container">
+        <label>Username</label>
+        <input
+          [(ngModel)]="model.username"
+          [ngClass]="{ error: errorMessage }"
+          name="username"
+          autocomplete="off"
+          type="text"
+          class="credentials-input"
+        />
+      </div>
+      <div class="credentials-input-container">
+        <label>Password</label>
+        <input
+          [(ngModel)]="model.password"
+          [ngClass]="{ error: errorMessage }"
+          name="password"
+          autocomplete="off"
+          type="password"
+          class="credentials-input"
+        />
+      </div>
 
-  <button class="credentials-submit-button">Submit</button>
-</form>
+      @if (errorMessage) {
+      <p class="error-message">{{ errorMessage }}</p>
+      }
+    </div>
+
+    <button class="credentials-submit-button">Submit</button>
+  </form>
+</div>

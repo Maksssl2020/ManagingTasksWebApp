@@ -1,0 +1,95 @@
+@import "../../variables.scss";
+
+.task-list-container {
+  height: 100%;
+  box-sizing: border-box;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  font-family: "Lato";
+  color: $custom-white-color-100;
+}
+
+.task-card {
+  height: 75px;
+  border: 2px solid $custom-gray-color-100;
+  border-radius: 1rem;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+}
+
+.task-card:hover {
+  border: 2px solid $custom-white-color-100;
+}
+
+.priotity-level {
+  width: 30px;
+  height: 30px;
+  background-color: aliceblue;
+  border-radius: 100%;
+  margin-right: 2rem;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 0, 0, 0.7),
+    rgba(255, 69, 0, 0.7),
+    rgba(205, 92, 92, 0.7)
+  );
+}
+
+.task-details-options-container {
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+  gap: 1rem;
+}
+
+.details-button {
+  height: 45px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  background-color: transparent;
+  border: solid 2px $custom-gray-color-100;
+  text-transform: uppercase;
+  border-radius: 1em;
+  color: $custom-gray-color-100;
+  display: flex;
+  align-items: center;
+}
+
+.details-button:hover {
+  -webkit-text-fill-color: $custom-white-color-100;
+  border: 2px solid $custom-white-color-100;
+  cursor: pointer;
+  background: linear-gradient(
+    45deg,
+    transparentize(rgba(255, 0, 0, 0.7), 0.1),
+    transparentize(rgba(255, 0, 127, 0.7), 0.1),
+    transparentize(rgba(205, 81, 205, 0.7), 0.1),
+    transparentize(rgba(128, 0, 128, 0.7), 0.1)
+  );
+}
+
+.icon-button {
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border: 2px solid $custom-gray-color-100;
+  border-radius: 10px;
+  box-sizing: border-box;
+  color: $custom-gray-color-100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.icon-button:hover {
+  border: 2px solid $custom-white-color-100;
+  color: $custom-white-color-100;
+}
+
+.icon {
+  height: 20px;
+  font-size: 20px;
+}

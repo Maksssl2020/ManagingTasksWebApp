@@ -5,9 +5,9 @@ using API.Data;
 using API.DTOs.Authentication;
 using API.Interfaces;
 using API.Models.User;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
 namespace API.Controllers;
 
@@ -72,14 +72,18 @@ public class AuthenticationController(ApplicationDbContext applicationDbContext,
     }
 
     [HttpPost("is-username-unique")]
-    public async Task<ActionResult<bool>> IsUsernameUnique(string username)
+    public async Task<ActionResult<bool>> IsUsernameUnique(UsernameRequest usernameRequest)
     {
-        return await applicationDbContext.Users.AnyAsync(user => !user.Username.Equals(username));
+        var users = await applicationDbContext.Users.ToListAsync();
+        bool isUnique = !users.Any(user => user.Username == usernameRequest.Username);
+        return Ok(isUnique);
     }
 
     [HttpPost("is-email-unique")]
-    public async Task<ActionResult<bool>> IsEmailUnique(string email)
+    public async Task<ActionResult<bool>> IsEmailUnique(EmailRequest emailRequest)
     {
-        return await applicationDbContext.Users.AnyAsync(user => !user.Email.Equals(email));
+        var users = await applicationDbContext.Users.ToListAsync();
+        bool isUnique = !users.Any(user => user.Email == emailRequest.Email);
+        return Ok(isUnique);
     }
 }

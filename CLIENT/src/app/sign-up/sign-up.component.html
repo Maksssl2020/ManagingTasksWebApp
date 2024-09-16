@@ -1,69 +1,76 @@
-<form
-  [formGroup]="signUpForm"
-  (ngSubmit)="register()"
-  autocomplete="off"
-  class="form-container"
->
-  <div class="title-container">
-    <h1>Sign Up</h1>
-    <p class="line"></p>
-  </div>
-
-  <div class="credentials-container">
-    <div class="credentials-input-container">
-      <label>Username</label>
-      <input
-        formControlName="username"
-        name="username"
-        autocomplete="off"
-        type="text"
-        class="credentials-input"
-      />
-      @if (usernameIsInvalid) {
-      <p>''</p>
-      }
-    </div>
-    <div class="credentials-input-container">
-      <label>E-mail</label>
-      <input
-        formControlName="email"
-        name="email"
-        autocomplete="off"
-        type="email"
-        class="credentials-input"
-      />
-      @if (emailIsInvalid) {
-      <p>"</p>
-      }
-    </div>
-    <div class="credentials-input-container" formGroupName="passwords">
-      <label>Password</label>
-      <input
-        formControlName="password"
-        name="password"
-        autocomplete="off"
-        type="password"
-        class="credentials-input"
-      />
-      <!-- @if (passwordIsInvalid) {
-      <p>""</p>
-      } -->
+<div class="page-container">
+  <form
+    [formGroup]="signUpForm"
+    (ngSubmit)="register()"
+    autocomplete="off"
+    class="form-container"
+  >
+    <div class="title-container">
+      <h1>Sign Up</h1>
+      <p class="line"></p>
     </div>
 
-    <div class="credentials-input-container" formGroupName="passwords">
-      <label>Confirm password</label>
-      <input
-        formControlName="confirmPassword"
-        name="confirmPassword"
-        autocomplete="off"
-        type="password"
-        class="credentials-input"
-      />
-      <!-- @if (passwordIsInvalid) {
-      <p>""</p>
-      } -->
-    </div>
-  </div>
+    <div class="credentials-container">
+      <div class="credentials-input-container">
+        <label>Username</label>
+        <input
+          formControlName="username"
+          name="username"
+          autocomplete="off"
+          type="text"
+          class="credentials-input"
+        />
+        @if (signUpForm.get('username')?.hasError('noUnique')) {
+        <p>Username exists in tha base!</p>
+        } @else if (signUpForm.get('username')?.errors) {
+        <p>Please enter a valid username!</p>
+        }
+      </div>
+      <div class="credentials-input-container">
+        <label>E-mail</label>
+        <input
+          formControlName="email"
+          name="email"
+          autocomplete="off"
+          type="email"
+          class="credentials-input"
+        />
+        @if (signUpForm.get('email')?.hasError('noUnique')) {
+        <p>E-mail exists in tha base!</p>
+        } @else if (signUpForm.get('email')?.errors) {
+        <p>Please enter a valid e-mail!</p>
+        }
+      </div>
+      <div class="credentials-input-container" formGroupName="passwords">
+        <label>Password</label>
+        <input
+          formControlName="password"
+          name="password"
+          autocomplete="off"
+          type="password"
+          class="credentials-input"
+        />
+        @if (signUpForm.get('passwords.password')?.hasError('required') ||
+        signUpForm.get('passwords.password')?.hasError('minLength')) {
+        <p>Please enter a minimum 6 characters long password!</p>
+        }
+      </div>
 
-  <button type="submit" class="credentials-submit-button">Submit</button>
-</form>
+      <div class="credentials-input-container" formGroupName="passwords">
+        <label>Confirm password</label>
+        <input
+          formControlName="confirmPassword"
+          name="confirmPassword"
+          autocomplete="off"
+          type="password"
+          class="credentials-input"
+        />
+        @if (signUpForm.get('passwords')?.hasError('valuesNotEqual')) {
+        <p>Passwords are not equal!</p>
+        }
+      </div>
+    </div>
+
+    <button type="submit" class="credentials-submit-button">Submit</button>
+  </form>
+</div>

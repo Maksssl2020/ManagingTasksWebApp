@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { map } from 'rxjs';
 import { User } from '../modules/User';
@@ -46,23 +46,17 @@ export class AuthenticationService {
 
   checkUsername(username: string) {
     return this.http
-      .post<string>(
-        this.baseUrl.concat('authentication/is-username-unique'),
-        username
-      )
-      .pipe((response) => {
-        return response;
-      });
+      .post<boolean>(this.baseUrl.concat('authentication/is-username-unique'), {
+        username,
+      })
+      .pipe(map((isUnique) => (isUnique ? null : { noUnique: true })));
   }
 
   checkEmail(email: string) {
     return this.http
-      .post<string>(
-        this.baseUrl.concat('authentication/is-email-unique'),
-        email
-      )
-      .pipe((response) => {
-        return response;
-      });
+      .post<boolean>(this.baseUrl.concat('authentication/is-email-unique'), {
+        email: email,
+      })
+      .pipe(map((isUnique) => (isUnique ? null : { noUnique: true })));
   }
 }
