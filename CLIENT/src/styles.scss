@@ -107,6 +107,80 @@ body {
   );
 }
 
+.text-gradient {
+  background: linear-gradient(125deg, red, #ff007f, #cd51cd, purple);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-repeat: no-repeat;
+  background-clip: text;
+}
+
+.low-priority-level-bg-gradient {
+  background: linear-gradient(
+    45deg,
+    rgba(144, 238, 144, 0.7),
+    rgba(50, 205, 50, 0.7),
+    rgba(34, 139, 34, 0.7)
+  );
+}
+
+.medium-priority-level-bg-gradient {
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 0, 0.7),
+    rgba(255, 165, 0, 0.7),
+    rgba(255, 140, 0, 0.7)
+  );
+}
+
+.high-priority-level-bg-gradient {
+  background: linear-gradient(
+    45deg,
+    rgba(255, 0, 0, 0.7),
+    rgba(255, 69, 0, 0.7),
+    rgba(205, 92, 92, 0.7)
+  );
+}
+
+.low-priority-level-text-gradient {
+  background: linear-gradient(
+    45deg,
+    rgba(144, 238, 144, 0.7),
+    rgba(50, 205, 50, 0.7),
+    rgba(34, 139, 34, 0.7)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-repeat: no-repeat;
+  background-clip: text;
+}
+
+.medium-priority-level-text-gradient {
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 0, 0.7),
+    rgba(255, 165, 0, 0.7),
+    rgba(255, 140, 0, 0.7)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-repeat: no-repeat;
+  background-clip: text;
+}
+
+.high-priority-level-text-gradient {
+  background: linear-gradient(
+    45deg,
+    rgba(255, 0, 0, 0.7),
+    rgba(255, 69, 0, 0.7),
+    rgba(205, 92, 92, 0.7)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-repeat: no-repeat;
+  background-clip: text;
+}
+
 .hidden {
   display: none;
 }

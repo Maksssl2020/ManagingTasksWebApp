@@ -12,4 +12,13 @@ import { NgClass } from '@angular/common';
 export class AddTaskModalComponent {
   private iconsService = inject(IconsService);
   cancelIcon = this.iconsService.getIcon('cancel');
+  activeCategory: string = 'task';
+
+  setActiveCategory(category: string) {
+    this.activeCategory = category;
+  }
+
+  isActiveCategory(category: string): boolean {
+    return this.activeCategory === category;
+  }
 }
