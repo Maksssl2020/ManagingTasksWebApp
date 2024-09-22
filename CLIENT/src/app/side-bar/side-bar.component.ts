@@ -1,13 +1,31 @@
 import { Component } from '@angular/core';
-import { AddTaskModalComponent } from '../add-task-modal/add-task-modal.component';
+import { ActionModalComponent } from '../action-modal/action-modal.component';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-side-bar',
   standalone: true,
-  imports: [AddTaskModalComponent],
+  imports: [ActionModalComponent, NgClass],
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.scss',
 })
 export class SideBarComponent {
-  isAddTaskModalOpen = true;
+  chosenCategory = 'all';
+  isActionModalOpen = true;
+
+  openModal() {
+    this.isActionModalOpen = true;
+  }
+
+  closeModal() {
+    this.isActionModalOpen = false;
+  }
+
+  setChosenCategory(category: string) {
+    this.chosenCategory = category;
+  }
+
+  isCategoryChosen(category: string): boolean {
+    return category === this.chosenCategory;
+  }
 }

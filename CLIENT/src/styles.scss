@@ -1,4 +1,5 @@
 @import "./variables.scss";
+@import "ngx-toastr/toastr";
 
 body {
   background-color: $custom-black-color-100;
@@ -107,6 +108,16 @@ body {
   );
 }
 
+.background-gradient {
+  background: linear-gradient(
+    45deg,
+    transparentize(rgba(255, 0, 0, 0.8), 0.1),
+    transparentize(rgba(255, 0, 127, 0.8), 0.1),
+    transparentize(rgba(205, 81, 205, 0.8), 0.1),
+    transparentize(rgba(128, 0, 128, 0.8), 0.1)
+  );
+}
+
 .text-gradient {
   background: linear-gradient(125deg, red, #ff007f, #cd51cd, purple);
   -webkit-background-clip: text;
@@ -179,6 +190,21 @@ body {
   -webkit-text-fill-color: transparent;
   background-repeat: no-repeat;
   background-clip: text;
+}
+
+.action-modal-submit-button {
+  text-transform: uppercase;
+  background-color: transparent;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: $custom-white-color-100;
+  border: 2px solid $custom-white-color-100;
+  border-radius: 10px;
+}
+
+.action-modal-submit-button:hover {
+  @extend .background-gradient;
+  cursor: pointer;
 }
 
 .hidden {

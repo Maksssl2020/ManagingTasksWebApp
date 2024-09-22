@@ -65,6 +65,7 @@ public class AuthenticationController(ApplicationDbContext applicationDbContext,
 
         return new UserDto
         {
+            Id = user.Id,
             Username = user.Username,
             Email = user.Email,
             Token = tokenService.GenerateToken(user)

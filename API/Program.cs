@@ -10,7 +10,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(oprions => oprions.UseSqlite
 
 builder.Services.AddCors();
 builder.Services.AddScoped<ITokenService, TokenService>();
-
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 
 builder.Services.AddControllers();
