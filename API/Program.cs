@@ -1,5 +1,8 @@
 using API.Data;
 using API.Interfaces;
+using API.Repositories;
+using API.Repositories.ToDoTaskRepository;
+using API.Repositories.UsersRepository;
 using API.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +13,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(oprions => oprions.UseSqlite
 
 builder.Services.AddCors();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IToDoTaskRepository, ToDoTaskRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 

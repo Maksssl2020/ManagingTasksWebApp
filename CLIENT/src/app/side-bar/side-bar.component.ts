@@ -11,7 +11,7 @@ import { NgClass } from '@angular/common';
 })
 export class SideBarComponent {
   chosenCategory = 'all';
-  isActionModalOpen = true;
+  isActionModalOpen = false;
 
   openModal() {
     this.isActionModalOpen = true;
@@ -27,5 +27,9 @@ export class SideBarComponent {
 
   isCategoryChosen(category: string): boolean {
     return category === this.chosenCategory;
+  }
+
+  handleTaskAdded() {
+    this.isActionModalOpen = false;
   }
 }

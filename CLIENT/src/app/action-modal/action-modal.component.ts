@@ -4,6 +4,7 @@ import {
   inject,
   Input,
   input,
+  output,
   Output,
 } from '@angular/core';
 import { IconsService } from '../services/icons.service';
@@ -28,8 +29,9 @@ export class ActionModalComponent {
   private iconsService = inject(IconsService);
   cancelIcon = this.iconsService.getIcon('cancel');
   activeCategory: string = 'task';
-  @Input() activeSideBarCategory: string | undefined;
-  @Output() closeModal: EventEmitter<any> = new EventEmitter<any>();
+  activeSideBarCategory = input.required<string>();
+  closeModal = output<void>();
+  newTaskAdded = output<void>();
 
   setActiveCategory(category: string) {
     this.activeCategory = category;
@@ -37,5 +39,10 @@ export class ActionModalComponent {
 
   isActiveCategory(category: string): boolean {
     return this.activeCategory === category;
+  }
+
+  handleTaskAdded() {
+    this.closeModal.emit();
+    this.newTaskAdded.emit();
   }
 }

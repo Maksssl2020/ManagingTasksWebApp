@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { IconsService } from '../services/icons.service';
 import { NgClass } from '@angular/common';
 import { AuthenticationService } from '../services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -13,9 +14,10 @@ import { AuthenticationService } from '../services/authentication.service';
 export class HeaderComponent implements OnInit {
   private iconsService = inject(IconsService);
   private authenticationService = inject(AuthenticationService);
-  journalIcon: string | undefined;
-  userIcon: string | undefined;
-  logoutIcon: string | undefined;
+  private router = inject(Router);
+  journalIcon?: string;
+  userIcon?: string;
+  logoutIcon?: string;
 
   ngOnInit(): void {
     this.journalIcon = this.iconsService.getIcon('journal');
@@ -25,5 +27,6 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.authenticationService.logout();
+    this.router.navigateByUrl('/');
   }
 }

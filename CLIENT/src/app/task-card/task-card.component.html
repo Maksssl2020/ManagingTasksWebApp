@@ -1,0 +1,17 @@
+<div class="task-card">
+  <p
+    class="priority-level"
+    [ngClass]="'priority-level-' + taskData().priority.toLowerCase()"
+  ></p>
+  <p>{{ taskData().title }}</p>
+  <div class="task-details-options-container">
+    <button class="details-button">details</button>
+    <div>{{ taskData().deadline | date : "dd-MM-yyyy" }}</div>
+    <button class="icon-button">
+      <i [ngClass]="editIcon" class="icon"></i>
+    </button>
+    <button (click)="deleteTask(taskData().id)" class="icon-button">
+      <i [ngClass]="deleteIcon" class="icon"></i>
+    </button>
+  </div>
+</div>

@@ -40,36 +40,11 @@
     <label>Priority:</label>
     <div class="priority-buttons-container">
       @for (priorityData of priorityLevels; track $index) {
-      <div
-        [ngClass]="{
-          'button-overlay-selected': isPriorityChosen(priorityData.value)
-        }"
-        class="button-overlay"
-        [class]="priorityData.buttonClass"
-      >
-        <button
-          [ngClass]="[
-            isPriorityChosen(priorityData.value)
-              ? priorityData.activeButtonClass
-              : ''
-          ]"
-          (click)="setChosenPrioroty(priorityData.value)"
-          class="priority-button"
-          type="button"
-        >
-          <p
-            [ngClass]="{
-              'priority-button-text-selected': isPriorityChosen(
-                priorityData.value
-              )
-            }"
-            class="priority-button-text"
-            [class]="priorityData.textClass"
-          >
-            {{ priorityData.label }}
-          </p>
-        </button>
-      </div>
+      <app-task-priority-button
+        [priorityName]="priorityData"
+        [isPrioritySelected]="isPriorityChosen(priorityData)"
+        (selectedPriority)="setChosenPriority($event)"
+      />
       }
     </div>
     <button class="task-submit-button">Add Task</button>

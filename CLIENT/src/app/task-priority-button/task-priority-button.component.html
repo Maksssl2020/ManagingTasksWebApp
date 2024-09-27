@@ -1,0 +1,28 @@
+<div
+  [ngClass]="{
+    'button-overlay-selected': isPrioritySelected()
+  }"
+  class="button-overlay"
+  [class]="getButtonStylingDepensOnPriorityName(priorityName())"
+>
+  <button
+    [ngClass]="[
+      isPrioritySelected()
+        ? getStylingDependsOnSelectedPriority(priorityName())
+        : ''
+    ]"
+    (click)="onPrioritySelect()"
+    class="priority-button"
+    type="button"
+  >
+    <p
+      [ngClass]="{
+        'priority-button-text-selected': isPrioritySelected()
+      }"
+      class="priority-button-text"
+      [class]="getTextStylingDepensOnPriorityName(priorityName())"
+    >
+      {{ priorityName() }}
+    </p>
+  </button>
+</div>

@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -12,6 +12,7 @@ import 'ngx-toastr/toastr';
 import { TaskService } from '../services/task.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
+import { TaskPriorityButtonComponent } from '../task-priority-button/task-priority-button.component';
 
 function futureDateValidator(
   control: AbstractControl
@@ -29,7 +30,7 @@ function futureDateValidator(
 @Component({
   selector: 'app-task-form',
   standalone: true,
-  imports: [NgClass, ReactiveFormsModule],
+  imports: [NgClass, ReactiveFormsModule, TaskPriorityButtonComponent],
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.scss',
 })
@@ -37,32 +38,11 @@ export class TaskFormComponent {
   private taskService = inject(TaskService);
   private authenticationService = inject(AuthenticationService);
   private toastr = inject(ToastrService);
-  @Input() chosenSideBarCategory: string | undefined;
   chosenPriority: string = 'low';
+  chosenSideBarCategory = input.required<string>();
+  newTaskAdded = output<void>();
 
-  priorityLevels = [
-    {
-      label: 'Low',
-      value: 'low',
-      buttonClass: 'button-overlay-low',
-      textClass: 'priority-button-text-low',
-      activeButtonClass: 'priority-button-active priority-button-active-low',
-    },
-    {
-      label: 'Medium',
-      value: 'medium',
-      buttonClass: 'button-overlay-medium',
-      textClass: 'priority-button-text-medium',
-      activeButtonClass: 'priority-button-active priority-button-active-medium',
-    },
-    {
-      label: 'High',
-      value: 'high',
-      buttonClass: 'button-overlay-high',
-      textClass: 'priority-button-text-high',
-      activeButtonClass: 'priority-button-active priority-button-active-high',
-    },
-  ];
+  priorityLevels = ['low', 'medium', 'high'];
 
   newTaskForm = new FormGroup({
     title: new FormControl('', {
@@ -79,7 +59,7 @@ export class TaskFormComponent {
     }),
   });
 
-  setChosenPrioroty(priority: string) {
+  setChosenPriority(priority: string) {
     this.chosenPriority = priority;
   }
 
@@ -95,16 +75,19 @@ export class TaskFormComponent {
     const taskData = {
       title: this.newTaskForm.value.title,
       details: this.newTaskForm.value.details,
-      dueDate: this.newTaskForm.value.dueDate,
-      priority: this.chosenPriority,
+      deadline: this.newTaskForm.value.dueDate,
+      priority: this.chosenPriority.toUpperCase(),
       project: this.getProjectNameDependsOnChosenCateogry(),
       userId: this.authenticationService.currentuser()?.id,
     };
+
+    console.log(taskData);
 
     this.taskService.addNewTask(taskData).subscribe({
       next: (response) => {
         console.log(response);
         this.toastr.success('Added new task!');
+        this.newTaskAdded.emit();
       },
       error: (error) => {
         console.log(error);
@@ -114,18 +97,18 @@ export class TaskFormComponent {
   }
 
   getProjectNameDependsOnChosenCateogry() {
-    switch (this.chosenSideBarCategory) {
+    switch (this.chosenSideBarCategory()) {
       case 'all': {
-        return 'general';
+        return 'home';
       }
       case 'Today': {
-        return 'general';
+        return 'home';
       }
       case 'Week': {
-        return 'general';
+        return 'home';
       }
       case 'Notes': {
-        return 'general';
+        return 'home';
       }
       default: {
         return this.chosenSideBarCategory;

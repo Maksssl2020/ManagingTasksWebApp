@@ -1,9 +1,13 @@
 using System;
+using System.Net;
 using API.Data;
 using API.DTOs.Task;
 using API.Models.Task;
 using API.Models.User;
+using API.Repositories;
+using API.Repositories.UsersRepository;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,29 +16,46 @@ namespace API.Controllers;
 
 [ApiController]
 [Route("/api/to-do-tasks/")]
-public class ToDoTaskController(ApplicationDbContext applicationDbContext, IMapper mapper) : ControllerBase
+public class ToDoTaskController(IToDoTaskRepository toDoTaskRepository, IUserRepository userRepository) : ControllerBase
 {
 
-    [HttpGet("test")]
-    public ActionResult<string> Test()
+    [HttpGet("all")]
+    public async Task<ActionResult<IEnumerable<ToDoTaskDto>>> GetAllTasks()
     {
-        return "Test endpoint is working.";
+        var foundTasks = await toDoTaskRepository.GetAllTasksAcync();
+
+        if (foundTasks == null)
+        {
+            return NotFound("There aren't any tasks!");
+        }
+
+        return Ok(foundTasks);
+    }
+
+    [HttpGet("all/user/{id}")]
+    public async Task<ActionResult<IEnumerable<ToDoTaskDto>>> GetAllUserTasks(long id)
+    {
+        var foundTasks = await toDoTaskRepository.GetTasksByUserIdAsync(id);
+
+        if (foundTasks == null)
+        {
+            return NotFound("There aren't any user's tasks!");
+        }
+
+        return Ok(foundTasks);
     }
 
     [HttpPost("save-task")]
-    public async Task<ActionResult<ToDoTaskDto>> SaveTask([FromBody] ToDoTaskRequest taskRequest)
+    public async Task<ActionResult<HttpStatusCode>> SaveTask([FromBody] ToDoTaskRequest taskRequest)
     {
-
-        Console.WriteLine($"Searching for user with ID: {taskRequest.UserId}");
-
-        var foundUser = await applicationDbContext.Users.FindAsync(taskRequest.UserId);
+        var foundUser = await userRepository.GetUserByIdAsync(taskRequest.UserId);
 
         if (foundUser == null)
         {
             return NotFound("User not found!");
         }
 
-        if (Enum.TryParse<TaskPriority>(taskRequest.Priority, out TaskPriority priority))
+        if (!Enum.TryParse<TaskPriority>(taskRequest.Priority, true, out TaskPriority priority))
         {
             return BadRequest("Invalid task prioroty name!");
         }
@@ -51,9 +72,14 @@ public class ToDoTaskController(ApplicationDbContext applicationDbContext, IMapp
             UserId = foundUser.Id
         };
 
-        applicationDbContext.Tasks.Add(task);
-        await applicationDbContext.SaveChangesAsync();
+        await toDoTaskRepository.SaveTaskAsync(task);
 
-        return Ok(mapper.Map<ToDoTaskDto>(task));
+        return Ok();
+    }
+
+    [HttpDelete("delete-task/{id}")]
+    public async Task<ActionResult<HttpStatusCode>> DeleteTask(long id)
+    {
+        return await toDoTaskRepository.DeleteTask(id);
     }
 }

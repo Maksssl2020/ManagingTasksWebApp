@@ -1,9 +1,14 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { AuthenticationService } from './services/authentication.service';
-import { filter } from 'rxjs';
+import { filter, interval } from 'rxjs';
 import { NgClass, NgIf } from '@angular/common';
 
 @Component({
@@ -20,6 +25,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.setCurrentUser();
+
+    interval(1000).subscribe();
 
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))

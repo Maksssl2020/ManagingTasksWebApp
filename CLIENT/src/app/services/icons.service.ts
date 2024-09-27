@@ -13,8 +13,6 @@ export class IconsService {
     cancel: 'bi bi-x-lg',
   };
 
-  constructor() {}
-
   getIcon(iconName: string): string | undefined {
     return this.icons[iconName];
   }
