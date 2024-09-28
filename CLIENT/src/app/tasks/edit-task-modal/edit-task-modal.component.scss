@@ -1,5 +1,50 @@
-@import "../../variables.scss";
-@import "../../styles.scss";
+@import "../../../variables.scss";
+@import "../../../styles.scss";
+
+.modal-container {
+  width: 750px;
+  height: 550px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.icon-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: 1rem;
+  margin-right: 1rem;
+}
+
+.icon {
+  margin-left: 1px;
+}
+
+.priority-level {
+  width: 30px;
+  height: 30px;
+  background-color: aqua;
+  border-radius: 100%;
+  margin-right: 2rem;
+
+  &.priority-level-low {
+    @extend .low-priority-level-bg-gradient;
+  }
+
+  &.priority-level-medium {
+    @extend .medium-priority-level-bg-gradient;
+  }
+
+  &.priority-level-high {
+    @extend .high-priority-level-bg-gradient;
+  }
+}
+
+.icon {
+  height: 20px;
+  font-size: 20px;
+}
 
 .task-form-container {
   width: 100%;

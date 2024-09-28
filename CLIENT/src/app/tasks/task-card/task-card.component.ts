@@ -1,8 +1,8 @@
-import { Component, inject, input } from '@angular/core';
-import { IconsService } from '../services/icons.service';
+import { Component, inject, input, output } from '@angular/core';
+import { IconsService } from '../../services/icons.service';
 import { DatePipe, NgClass } from '@angular/common';
-import { Task } from '../modules/Task';
-import { TaskService } from '../services/task.service';
+import { Task } from '../../modules/Task';
+import { TaskService } from '../../services/task.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -19,6 +19,8 @@ export class TaskCardComponent {
   editIcon = this.iconService.getIcon('edit');
   deleteIcon = this.iconService.getIcon('delete');
   taskData = input.required<Task>();
+  showTaskDetailsModal = output<number>();
+  editTask = output<number>();
 
   deleteTask(id: number) {
     this.tasksService.deleteUserTask(id).subscribe({
@@ -30,5 +32,14 @@ export class TaskCardComponent {
         console.log(error);
       },
     });
+  }
+
+  openTaskDetailsModal() {
+    this.showTaskDetailsModal.emit(this.taskData().id);
+  }
+
+  handleEditTask() {
+    console.log('Edit task clicked', this.taskData().id);
+    this.editTask.emit(this.taskData().id);
   }
 }

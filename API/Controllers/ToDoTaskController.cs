@@ -45,6 +45,19 @@ public class ToDoTaskController(IToDoTaskRepository toDoTaskRepository, IUserRep
         return Ok(foundTasks);
     }
 
+    [HttpGet("get-task/{id}")]
+    public async Task<ActionResult<ToDoTaskDto>> getTask(long id)
+    {
+        var foundTask = await toDoTaskRepository.GetTaskByIdAsync(id);
+
+        if (foundTask == null)
+        {
+            return BadRequest("There is not a task with chosen id!");
+        }
+
+        return foundTask;
+    }
+
     [HttpPost("save-task")]
     public async Task<ActionResult<HttpStatusCode>> SaveTask([FromBody] ToDoTaskRequest taskRequest)
     {

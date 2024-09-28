@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router, RouterLink } from '@angular/router';
 import { SideBarComponent } from '../side-bar/side-bar.component';
-import { TaskListComponent } from '../task-list/task-list.component';
+import { TaskListComponent } from '../tasks/task-list/task-list.component';
 
 @Component({
   selector: 'app-home',

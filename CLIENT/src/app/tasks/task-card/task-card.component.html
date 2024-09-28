@@ -5,9 +5,11 @@
   ></p>
   <p>{{ taskData().title }}</p>
   <div class="task-details-options-container">
-    <button class="details-button">details</button>
+    <button (click)="openTaskDetailsModal()" class="details-button">
+      details
+    </button>
     <div>{{ taskData().deadline | date : "dd-MM-yyyy" }}</div>
-    <button class="icon-button">
+    <button (click)="handleEditTask()" class="icon-button">
       <i [ngClass]="editIcon" class="icon"></i>
     </button>
     <button (click)="deleteTask(taskData().id)" class="icon-button">

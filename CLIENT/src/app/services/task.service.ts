@@ -1,7 +1,7 @@
 import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { Task } from '../modules/Task';
-import { BehaviorSubject, catchError, map, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, map, of, tap, throwError } from 'rxjs';
 import { AuthenticationService } from './authentication.service';
 import { environment } from '../../environments/environment';
 
@@ -9,9 +9,8 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class TaskService {
-  tasks$ = new BehaviorSubject<Task[]>([]);
-  private authenticationService = inject(AuthenticationService);
   private http = inject(HttpClient);
+  private authenticationService = inject(AuthenticationService);
   private userTasks = signal<Task[]>([]);
   baseUrl = environment.apiUrl;
   loadedUserTasks = this.userTasks.asReadonly();
@@ -20,16 +19,9 @@ export class TaskService {
     return this.http
       .post<HttpStatusCode>(this.baseUrl.concat('to-do-tasks/save-task'), model)
       .pipe(
-        map((task) => {
-          return task;
-        }),
-        catchError((error) => {
-          console.error('Error occurred while saving the task', error);
-          return throwError(() => new Error('Failed to save task'));
-        }),
         tap({
-          next: (_) => {
-            this.getUserTasks().subscribe();
+          next: () => {
+            this.userTasks.update((tasks) => [...tasks, model]);
           },
         })
       );
@@ -41,12 +33,11 @@ export class TaskService {
         this.baseUrl.concat(`to-do-tasks/delete-task/${id}`)
       )
       .pipe(
-        map((code) => {
-          return code;
-        }),
         tap({
-          next: (_) => {
-            this.getUserTasks().subscribe();
+          next: () => {
+            this.userTasks.update((tasks) =>
+              tasks.filter((task) => task.id !== id)
+            );
           },
         })
       );
@@ -59,13 +50,20 @@ export class TaskService {
           `to-do-tasks/all/user/${this.authenticationService.currentuser()?.id}`
         )
       )
-      .pipe(
-        map((tasks) => {
-          return tasks;
-        }),
-        tap({
-          next: (tasks) => this.userTasks.set(tasks),
-        })
-      );
+      .subscribe({
+        next: (tasks) => this.userTasks.set(tasks),
+      });
+  }
+
+  getUserTask(id: number) {
+    const task = this.userTasks().find((tasks) => tasks.id === id);
+
+    if (task !== undefined) {
+      return of(task);
+    }
+
+    return this.http.get<Task>(
+      this.baseUrl.concat(`to-do-tasks/get-task/${id}`)
+    );
   }
 }

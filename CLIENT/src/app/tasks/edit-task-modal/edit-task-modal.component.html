@@ -1,0 +1,41 @@
+<div class="modal-overlay"></div>
+<div class="modal-container">
+  <button (click)="handleCloseModal()" class="icon-button">
+    <i [ngClass]="cancelIcon" class="icon"></i>
+  </button>
+  <form class="task-form-container">
+    <input
+      name="title"
+      type="text"
+      class="task-title-input"
+      [(ngModel)]="chosenTaskData.title"
+    />
+    <textarea
+      name="details"
+      class="task-details-textarea"
+      [(ngModel)]="chosenTaskData.details"
+    ></textarea>
+    <div class="date-container">
+      <label>Due date:</label>
+      <input
+        name="date"
+        class="task-date-input"
+        type="date"
+        [(ngModel)]="chosenTaskData.deadline"
+      />
+    </div>
+    <div class="priority-container">
+      <label>Priority:</label>
+      <div class="priority-buttons-container">
+        @for (priorityData of priorityLevels; track $index) {
+        <app-task-priority-button
+          [priorityName]="priorityData"
+          [isPrioritySelected]="isPriorityChosen(priorityData)"
+          (selectedPriority)="setChosenPriority($event)"
+        />
+        }
+      </div>
+      <button class="task-submit-button">Add Task</button>
+    </div>
+  </form>
+</div>

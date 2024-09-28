@@ -1,0 +1,19 @@
+<div class="task-list-container">
+  @for (task of userTasks(); track $index) {
+  <app-task-card
+    [taskData]="task"
+    (editTask)="openEditTaskModal($event)"
+    (showTaskDetailsModal)="openDetailsModal($event)"
+  />
+  } @if (isDetailsModalOpen && chosenTaskId) {
+  <app-task-details-modal
+    [taskId]="chosenTaskId"
+    (closeModal)="closeDetailsModal()"
+  />
+  } @if (isEditTaskModalOpen && chosenTaskId) {
+  <app-edit-task-modal
+    [taskId]="chosenTaskId"
+    (closeModal)="closeEditTaskModal()"
+  />
+  }
+</div>

@@ -9,8 +9,8 @@ import {
   Validators,
 } from '@angular/forms';
 import 'ngx-toastr/toastr';
-import { TaskService } from '../services/task.service';
-import { AuthenticationService } from '../services/authentication.service';
+import { TaskService } from '../../services/task.service';
+import { AuthenticationService } from '../../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 import { TaskPriorityButtonComponent } from '../task-priority-button/task-priority-button.component';
 
