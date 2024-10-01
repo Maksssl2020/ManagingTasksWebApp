@@ -10,7 +10,7 @@ public interface IToDoTaskRepository
     Task<HttpStatusCode> SaveTaskAsync(ToDoTask toDoTask);
     Task<ToDoTaskDto?> GetTaskByIdAsync(long id);
     Task<IEnumerable<ToDoTaskDto>> GetTasksByUserIdAsync(long id);
-    Task<IEnumerable<ToDoTaskDto>> GetAllTasksAcync();
-    Task<HttpStatusCode> UpdateTaskAsync(long id, ToDoTask toDoTask);
+    Task<IEnumerable<ToDoTaskDto>> GetAllTasksAsync();
+    Task<HttpStatusCode> UpdateTaskAsync(long id, ToDoTaskUpdateRequest toDoTaskUpdateRequest);
     Task<HttpStatusCode> DeleteTask(long id);
 }

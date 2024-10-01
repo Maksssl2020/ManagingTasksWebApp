@@ -3,26 +3,46 @@
   <button (click)="handleCloseModal()" class="icon-button">
     <i [ngClass]="cancelIcon" class="icon"></i>
   </button>
-  <form class="task-form-container">
+  <form [formGroup]="editTaskFormControl" class="task-form-container">
     <input
+      formControlName="title"
       name="title"
       type="text"
       class="task-title-input"
-      [(ngModel)]="chosenTaskData.title"
+      [placeholder]="
+        editTaskFormControl.get('title')?.hasError('required') &&
+        editTaskFormControl.get('title')?.touched
+          ? 'Title is required!'
+          : 'Enter a task title'
+      "
     />
     <textarea
+      formControlName="details"
       name="details"
       class="task-details-textarea"
-      [(ngModel)]="chosenTaskData.details"
+      [placeholder]="
+        editTaskFormControl.get('details')?.hasError('required') &&
+        editTaskFormControl.get('details')?.touched
+          ? 'Details are required!'
+          : 'Enter task details'
+      "
     ></textarea>
     <div class="date-container">
       <label>Due date:</label>
       <input
+        formControlName="dueDate"
         name="date"
         class="task-date-input"
         type="date"
-        [(ngModel)]="chosenTaskData.deadline"
       />
+
+      @if (editTaskFormControl.get('dueDate')?.hasError("futureDate") &&
+      editTaskFormControl.get('dueDate')?.touched) {
+      <p class="error-message">Date must be in the future!</p>
+      } @else if (editTaskFormControl.get('dueDate')?.hasError("required") &&
+      editTaskFormControl.get('dueDate')?.touched) {
+      <p class="error-message">Date is required!</p>
+      }
     </div>
     <div class="priority-container">
       <label>Priority:</label>
@@ -35,7 +55,80 @@
         />
         }
       </div>
-      <button class="task-submit-button">Add Task</button>
+      <button
+        [disabled]="!editTaskFormControl.dirty"
+        (click)="updateTask()"
+        class="task-submit-button"
+      >
+        Change
+      </button>
+    </div>
+  </form>
+</div>
+<div class="modal-overlay"></div>
+<div class="modal-container">
+  <button (click)="handleCloseModal()" class="icon-button">
+    <i [ngClass]="cancelIcon" class="icon"></i>
+  </button>
+  <form [formGroup]="editTaskFormControl" class="task-form-container">
+    <input
+      formControlName="title"
+      name="title"
+      type="text"
+      class="task-title-input"
+      [placeholder]="
+        editTaskFormControl.get('title')?.hasError('required') &&
+        editTaskFormControl.get('title')?.touched
+          ? 'Title is required!'
+          : 'Enter a task title'
+      "
+    />
+    <textarea
+      formControlName="details"
+      name="details"
+      class="task-details-textarea"
+      [placeholder]="
+        editTaskFormControl.get('details')?.hasError('required') &&
+        editTaskFormControl.get('details')?.touched
+          ? 'Details are required!'
+          : 'Enter task details'
+      "
+    ></textarea>
+    <div class="date-container">
+      <label>Due date:</label>
+      <input
+        formControlName="dueDate"
+        name="date"
+        class="task-date-input"
+        type="date"
+      />
+
+      @if (editTaskFormControl.get('dueDate')?.hasError("futureDate") &&
+      editTaskFormControl.get('dueDate')?.touched) {
+      <p class="error-message">Date must be in the future!</p>
+      } @else if (editTaskFormControl.get('dueDate')?.hasError("required") &&
+      editTaskFormControl.get('dueDate')?.touched) {
+      <p class="error-message">Date is required!</p>
+      }
+    </div>
+    <div class="priority-container">
+      <label>Priority:</label>
+      <div class="priority-buttons-container">
+        @for (priorityData of priorityLevels; track $index) {
+        <app-task-priority-button
+          [priorityName]="priorityData"
+          [isPrioritySelected]="isPriorityChosen(priorityData)"
+          (selectedPriority)="setChosenPriority($event)"
+        />
+        }
+      </div>
+      <button
+        [disabled]="!editTaskFormControl.dirty"
+        (click)="updateTask()"
+        class="task-submit-button"
+      >
+        Change
+      </button>
     </div>
   </form>
 </div>

@@ -12,5 +12,7 @@ public class AutoMapperProfiles : Profile
         CreateMap<ToDoTask, ToDoTaskDto>()
             .ForMember(destination => destination.Priority, option => option.MapFrom(source => source.Priority.ToString()))
             .ForMember(destination => destination.Deadline, option => option.MapFrom(source => DateOnly.Parse(source.Deadline.ToString())));
+
+        CreateMap<ToDoTaskUpdateRequest, ToDoTask>();
     }
 }

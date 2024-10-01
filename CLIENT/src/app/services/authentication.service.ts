@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment';
 export class AuthenticationService {
   private http = inject(HttpClient);
   baseUrl = environment.apiUrl;
-  currentuser = signal<User | null>(null);
+  currentUser = signal<User | null>(null);
 
   register(model: any) {
     return this.http
@@ -19,7 +19,7 @@ export class AuthenticationService {
         map((user) => {
           if (user) {
             localStorage.setItem('user', JSON.stringify(user));
-            this.currentuser.set(user);
+            this.currentUser.set(user);
           }
           return user;
         })
@@ -33,7 +33,7 @@ export class AuthenticationService {
         map((user) => {
           if (user) {
             localStorage.setItem('user', JSON.stringify(user)),
-              this.currentuser.set(user);
+              this.currentUser.set(user);
           }
           return user;
         })
@@ -42,7 +42,7 @@ export class AuthenticationService {
 
   logout() {
     localStorage.removeItem('user');
-    this.currentuser.set(null);
+    this.currentUser.set(null);
   }
 
   checkUsername(username: string) {

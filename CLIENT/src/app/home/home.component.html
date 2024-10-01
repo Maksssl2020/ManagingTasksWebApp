@@ -16,7 +16,11 @@
   </div>
   }
   <div class="home-data-container">
-    <app-side-bar></app-side-bar>
-    <app-task-list></app-task-list>
+    <app-side-bar
+      (currentCategory)="setCurrentChosenCategoryInSidebar($event)"
+    ></app-side-bar>
+    <app-task-list
+      [currentChosenCategoryInSidebar]="currentChosenCategoryInSidebar"
+    ></app-task-list>
   </div>
 </div>

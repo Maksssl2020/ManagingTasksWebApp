@@ -1,0 +1,48 @@
+<form
+  [formGroup]="taskForm"
+  (ngSubmit)="submitTask()"
+  class="task-form-container"
+>
+  <input
+    formControlName="title"
+    placeholder="Enter a task title"
+    [placeholder]="
+      taskForm.get('title')?.hasError('required') &&
+      taskForm.get('title')?.touched
+        ? 'Title is required!'
+        : 'Enter a task title'
+    "
+  />
+  <textarea
+    formControlName="details"
+    placeholder="Enter task details"
+    [placeholder]="
+      taskForm.get('details')?.hasError('required') &&
+      taskForm.get('details')?.touched
+        ? 'Details are required!'
+        : 'Enter task details'
+    "
+  ></textarea>
+  <input formControlName="dueDate" type="date" />
+  @if (taskForm.get('dueDate')?.hasError("futureDate") &&
+  taskForm.get('dueDate')?.touched) {
+  <p class="error-message">Date must be in the future!</p>
+  } @else if (taskForm.get('dueDate')?.hasError("required") &&
+  taskForm.get('dueDate')?.touched) {
+  <p class="error-message">Date is required!</p>
+  }
+  <div class="priority-container">
+    <label>Priority:</label>
+    <div class="priority-buttons-container">
+      @for (priority of priorityLevels; track $index) {
+      <app-task-priority-button
+        *ngFor="let priority of priorityLevels"
+        [priorityName]="priority"
+        [isPrioritySelected]="isPriorityChosen(priority)"
+        (selectedPriority)="setChosenPriority($event)"
+      />
+      }
+    </div>
+    <button type="submit" class="task-submit-button">{{ buttonName() }}</button>
+  </div>
+</form>

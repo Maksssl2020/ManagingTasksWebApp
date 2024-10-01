@@ -77,15 +77,14 @@ export class TaskFormComponent {
       details: this.newTaskForm.value.details,
       deadline: this.newTaskForm.value.dueDate,
       priority: this.chosenPriority.toUpperCase(),
-      project: this.getProjectNameDependsOnChosenCateogry(),
-      userId: this.authenticationService.currentuser()?.id,
+      project: this.getProjectNameDependsOnChosenCategory(),
+      userId: this.authenticationService.currentUser()?.id,
     };
 
     console.log(taskData);
 
     this.taskService.addNewTask(taskData).subscribe({
-      next: (response) => {
-        console.log(response);
+      next: () => {
         this.toastr.success('Added new task!');
         this.newTaskAdded.emit();
       },
@@ -96,18 +95,18 @@ export class TaskFormComponent {
     });
   }
 
-  getProjectNameDependsOnChosenCateogry() {
+  getProjectNameDependsOnChosenCategory() {
     switch (this.chosenSideBarCategory()) {
       case 'all': {
         return 'home';
       }
-      case 'Today': {
+      case 'today': {
         return 'home';
       }
-      case 'Week': {
+      case 'week': {
         return 'home';
       }
-      case 'Notes': {
+      case 'notes': {
         return 'home';
       }
       default: {

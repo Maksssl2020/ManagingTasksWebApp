@@ -19,17 +19,4 @@ public class ToDoTask
     public User.User User { get; set; } = null!;
 
 
-    public override string ToString()
-    {
-        return $"Id: {Id}, " +
-               $"Title: {Title}, " +
-               $"Deadline: {Deadline.ToString("yyyy-MM-dd")}, " +  // Formatujesz datę, jeśli chcesz
-               $"Project: {Project}, " +
-               $"Priority: {Priority}, " +
-               $"Details: {Details}, " +
-               $"IsFinished: {IsFinished}, " +
-               $"IsAfterDeadline: {IsAfterDeadline}, " +
-               $"UserId: {UserId}, " +
-               $"User: {User?.ToString() ?? "No user"}";  // Sprawdzasz, czy użytkownik nie jest nullem
-    }
 }

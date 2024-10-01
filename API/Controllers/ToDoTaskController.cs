@@ -22,7 +22,7 @@ public class ToDoTaskController(IToDoTaskRepository toDoTaskRepository, IUserRep
     [HttpGet("all")]
     public async Task<ActionResult<IEnumerable<ToDoTaskDto>>> GetAllTasks()
     {
-        var foundTasks = await toDoTaskRepository.GetAllTasksAcync();
+        var foundTasks = await toDoTaskRepository.GetAllTasksAsync();
 
         if (foundTasks == null)
         {
@@ -59,7 +59,7 @@ public class ToDoTaskController(IToDoTaskRepository toDoTaskRepository, IUserRep
     }
 
     [HttpPost("save-task")]
-    public async Task<ActionResult<HttpStatusCode>> SaveTask([FromBody] ToDoTaskRequest taskRequest)
+    public async Task<ActionResult<HttpStatusCode>> SaveTask(ToDoTaskRequest taskRequest)
     {
         var foundUser = await userRepository.GetUserByIdAsync(taskRequest.UserId);
 
@@ -68,9 +68,9 @@ public class ToDoTaskController(IToDoTaskRepository toDoTaskRepository, IUserRep
             return NotFound("User not found!");
         }
 
-        if (!Enum.TryParse<TaskPriority>(taskRequest.Priority, true, out TaskPriority priority))
+        if (!Enum.TryParse(taskRequest.Priority, true, out TaskPriority priority))
         {
-            return BadRequest("Invalid task prioroty name!");
+            return BadRequest("Invalid task priority name!");
         }
 
         var task = new ToDoTask
@@ -88,6 +88,24 @@ public class ToDoTaskController(IToDoTaskRepository toDoTaskRepository, IUserRep
         await toDoTaskRepository.SaveTaskAsync(task);
 
         return Ok();
+    }
+
+    [HttpPut("update-task")]
+    public async Task<ActionResult<HttpStatusCode>> UpdateTask(ToDoTaskUpdateRequest toDoTaskUpdateRequest)
+    {
+        try
+        {
+            await toDoTaskRepository.UpdateTaskAsync(toDoTaskUpdateRequest.Id, toDoTaskUpdateRequest);
+            return NoContent();
+        }
+        catch (ArgumentException exception)
+        {
+            return BadRequest(exception.Message);
+        }
+        catch (InvalidOperationException exception)
+        {
+            return BadRequest(exception.Message);
+        }
     }
 
     [HttpDelete("delete-task/{id}")]

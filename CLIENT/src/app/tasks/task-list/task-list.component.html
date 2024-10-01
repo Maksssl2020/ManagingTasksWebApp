@@ -1,5 +1,5 @@
 <div class="task-list-container">
-  @for (task of userTasks(); track $index) {
+  @for (task of userTasksToDisplay(); track $index) {
   <app-task-card
     [taskData]="task"
     (editTask)="openEditTaskModal($event)"

@@ -22,7 +22,7 @@ public class ToDoTaskRepository(ApplicationDbContext applicationDbContext, IMapp
         return affectedRows == 0 ? HttpStatusCode.NotFound : HttpStatusCode.NoContent;
     }
 
-    public async Task<IEnumerable<ToDoTaskDto>> GetAllTasksAcync()
+    public async Task<IEnumerable<ToDoTaskDto>> GetAllTasksAsync()
     {
         return await applicationDbContext.Tasks
         .ProjectTo<ToDoTaskDto>(mapper.ConfigurationProvider)
@@ -53,22 +53,17 @@ public class ToDoTaskRepository(ApplicationDbContext applicationDbContext, IMapp
         return HttpStatusCode.OK;
     }
 
-    public async Task<HttpStatusCode> UpdateTaskAsync(long id, ToDoTask toDoTask)
+    public async Task<HttpStatusCode> UpdateTaskAsync(long id, ToDoTaskUpdateRequest toDoTaskUpdateRequest)
     {
-        var affectedRows = await applicationDbContext.Tasks
-        .Where(task => task.Id == id)
-        .ExecuteUpdateAsync(updates =>
-            updates
-                .SetProperty(task => task.Title, toDoTask.Title)
-                .SetProperty(task => task.Deadline, toDoTask.Deadline)
-                .SetProperty(task => task.Project, toDoTask.Project)
-                .SetProperty(task => task.Priority, toDoTask.Priority)
-                .SetProperty(task => task.Details, toDoTask.Details)
-                .SetProperty(task => task.IsFinished, toDoTask.IsFinished)
-                .SetProperty(task => task.IsAfterDeadline, toDoTask.IsAfterDeadline)
-                .SetProperty(task => task.Deadline, toDoTask.Deadline)
-         );
+        var foundTask = await applicationDbContext.Tasks.FirstOrDefaultAsync(task => task.Id == id) ?? throw new ArgumentException("Task not found!");
 
-        return affectedRows == 0 ? HttpStatusCode.NotFound : HttpStatusCode.NoContent;
+        mapper.Map(toDoTaskUpdateRequest, foundTask);
+
+        if (await applicationDbContext.SaveChangesAsync() == 0)
+        {
+            throw new InvalidOperationException("Failed to update the task!");
+        }
+
+        return HttpStatusCode.NoContent;
     }
 }
