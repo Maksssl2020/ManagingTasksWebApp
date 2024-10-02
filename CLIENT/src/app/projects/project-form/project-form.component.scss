@@ -1,5 +1,12 @@
-@import "../../variables.scss";
-@import "../../styles.scss";
+@import "../../../variables.scss";
+@import "../../../styles.scss";
+
+.project-form-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 
 .project-title-input {
   height: 15%;
@@ -47,5 +54,5 @@
   height: 50px;
   width: 150px;
   margin-top: auto;
-  @extend .action-modal-submit-button;
+  @extend .submit-button;
 }

@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using API.Models.Project;
 using API.Models.Task;
 
 namespace API.Models.User;
@@ -14,4 +15,5 @@ public class User
     public required string Email { get; set; }
 
     public List<ToDoTask> Tasks { get; set; } = [];
+    public List<UserProject> Projects { get; set; } = [];
 }

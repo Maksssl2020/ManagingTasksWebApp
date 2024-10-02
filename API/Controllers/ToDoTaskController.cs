@@ -59,7 +59,7 @@ public class ToDoTaskController(IToDoTaskRepository toDoTaskRepository, IUserRep
     }
 
     [HttpPost("save-task")]
-    public async Task<ActionResult<HttpStatusCode>> SaveTask(ToDoTaskRequest taskRequest)
+    public async Task<ActionResult<ToDoTaskDto>> SaveTask(ToDoTaskRequest taskRequest)
     {
         var foundUser = await userRepository.GetUserByIdAsync(taskRequest.UserId);
 
@@ -85,9 +85,7 @@ public class ToDoTaskController(IToDoTaskRepository toDoTaskRepository, IUserRep
             UserId = foundUser.Id
         };
 
-        await toDoTaskRepository.SaveTaskAsync(task);
-
-        return Ok();
+        return await toDoTaskRepository.SaveTaskAsync(task); ;
     }
 
     [HttpPut("update-task")]

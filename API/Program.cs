@@ -1,6 +1,7 @@
 using API.Data;
 using API.Interfaces;
 using API.Repositories;
+using API.Repositories.ProjectRepository;
 using API.Repositories.ToDoTaskRepository;
 using API.Repositories.UsersRepository;
 using API.Services;
@@ -15,6 +16,7 @@ builder.Services.AddCors();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IToDoTaskRepository, ToDoTaskRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserProjectRepository, UserProjectRepository>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 

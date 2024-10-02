@@ -13,24 +13,18 @@ import { TaskService } from '../../services/task.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 import { TaskPriorityButtonComponent } from '../task-priority-button/task-priority-button.component';
-
-function futureDateValidator(
-  control: AbstractControl
-): ValidationErrors | null {
-  const currentDate = new Date().setHours(0, 0, 0, 0);
-  const selectedDate = new Date(control.value).setHours(0, 0, 0, 0);
-
-  if (selectedDate <= currentDate) {
-    return { futureDate: true };
-  } else {
-    return null;
-  }
-}
+import { MainTaskFormComponent } from '../main-task-form/main-task-form.component';
+import { Task } from '../../modules/Task';
 
 @Component({
   selector: 'app-task-form',
   standalone: true,
-  imports: [NgClass, ReactiveFormsModule, TaskPriorityButtonComponent],
+  imports: [
+    NgClass,
+    ReactiveFormsModule,
+    TaskPriorityButtonComponent,
+    MainTaskFormComponent,
+  ],
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.scss',
 })
@@ -42,41 +36,9 @@ export class TaskFormComponent {
   chosenSideBarCategory = input.required<string>();
   newTaskAdded = output<void>();
 
-  priorityLevels = ['low', 'medium', 'high'];
-
-  newTaskForm = new FormGroup({
-    title: new FormControl('', {
-      validators: Validators.required,
-      updateOn: 'submit',
-    }),
-    details: new FormControl('', {
-      validators: Validators.required,
-      updateOn: 'submit',
-    }),
-    dueDate: new FormControl('', {
-      validators: [Validators.required, futureDateValidator],
-      updateOn: 'submit',
-    }),
-  });
-
-  setChosenPriority(priority: string) {
-    this.chosenPriority = priority;
-  }
-
-  isPriorityChosen(priority: string): boolean {
-    return this.chosenPriority === priority;
-  }
-
-  addNewTask() {
-    if (this.newTaskForm.invalid) {
-      return;
-    }
-
+  addNewTask(task: Task) {
     const taskData = {
-      title: this.newTaskForm.value.title,
-      details: this.newTaskForm.value.details,
-      deadline: this.newTaskForm.value.dueDate,
-      priority: this.chosenPriority.toUpperCase(),
+      ...task,
       project: this.getProjectNameDependsOnChosenCategory(),
       userId: this.authenticationService.currentUser()?.id,
     };
@@ -110,7 +72,7 @@ export class TaskFormComponent {
         return 'home';
       }
       default: {
-        return this.chosenSideBarCategory;
+        return this.chosenSideBarCategory().toLowerCase();
       }
     }
   }

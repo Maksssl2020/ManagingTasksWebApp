@@ -1,6 +1,6 @@
 <div class="side-bar-container">
   <div class="categories-container">
-    <h2>Home</h2>
+    <h2>Tasks</h2>
     <ul class="subcategories-list">
       <li
         class="category"
@@ -26,16 +26,32 @@
     </ul>
     <h2>Projects</h2>
     <ul class="subcategories-list">
-      <li (click)="setChosenCategory('home')">home</li>
+      <li
+        class="category"
+        [ngClass]="{ active: isCategoryChosen('home') }"
+        (click)="setChosenCategory('home')"
+      >
+        Home
+      </li>
+      @if (userProjects.length > 0) { @for (project of userProjects; track
+      $index) {
+      <li
+        class="category"
+        [ngClass]="{ active: isCategoryChosen(project.title) }"
+        (click)="setChosenCategory(project.title)"
+      >
+        {{ project.title }}
+      </li>
+      } }
     </ul>
     <h2 (click)="setChosenCategory('notes')">Notes</h2>
   </div>
-  <button (click)="openModal()" class="add-button">ADD Task</button>
+  <button (click)="openModal()" class="add-button">ADD new</button>
 
   @if (isActionModalOpen) {
   <app-add-task-modal
     [activeSideBarCategory]="chosenCategory"
-    (newTaskAdded)="handleTaskAdded()"
+    (newTaskAdded)="handleDataAdded()"
     (closeModal)="closeModal()"
   />
   }

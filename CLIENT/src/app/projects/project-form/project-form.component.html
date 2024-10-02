@@ -1,0 +1,30 @@
+<form [formGroup]="projectForm" class="project-form-container">
+  <input
+    type="text"
+    class="project-title-input"
+    placeholder="Enter a project title"
+    formControlName="title"
+    [placeholder]="
+      projectForm.get('title')?.hasError('required') &&
+      projectForm.get('title')?.touched
+        ? 'Title is required!'
+        : 'Enter a task title'
+    "
+  />
+  <textarea
+    placeholder="Enter a project details"
+    class="project-details-textarea"
+    formControlName="details"
+    [placeholder]="
+      projectForm.get('details')?.hasError('required') &&
+      projectForm.get('details')?.touched
+        ? 'Details are required!'
+        : 'Enter task details'
+    "
+  ></textarea>
+  <div class="submit-button-container">
+    <button (click)="handleAddProject()" class="project-submit-button">
+      Add project
+    </button>
+  </div>
+</form>

@@ -41,27 +41,6 @@
   gap: 1rem;
 }
 
-.details-button {
-  height: 45px;
-  padding: 0 10px;
-  box-sizing: border-box;
-  background-color: transparent;
-  border: solid 2px $custom-gray-color-100;
-  text-transform: uppercase;
-  border-radius: 1em;
-  color: $custom-gray-color-100;
-  display: flex;
-  align-items: center;
-}
-
-.details-button:hover {
-  -webkit-text-fill-color: $custom-white-color-100;
-  border: 2px solid $custom-white-color-100;
-  cursor: pointer;
-
-  @extend .background-gradient;
-}
-
 .icon-button {
   width: 40px;
   height: 40px;

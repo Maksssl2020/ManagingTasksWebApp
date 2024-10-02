@@ -1,19 +1,30 @@
 <div class="task-list-container">
-  @for (task of userTasksToDisplay(); track $index) {
-  <app-task-card
-    [taskData]="task"
-    (editTask)="openEditTaskModal($event)"
-    (showTaskDetailsModal)="openDetailsModal($event)"
+  @if (userTasksToDisplay().length > 0 && userTasksToDisplay()[0].project !==
+  'home') {
+
+  <app-project-banner
+    [currentChosenCategoryInSidebar]="currentChosenCategoryInSidebar()"
+  />
+  }
+  <div class="task-cards-container">
+    @for (task of userTasksToDisplay(); track $index) {
+    <app-task-card
+      [taskData]="task"
+      (editTask)="openEditTaskModal($event)"
+      (showTaskDetailsModal)="openDetailsModal($event)"
+    />
+    }
+  </div>
+
+  @if (isEditTaskModalOpen && chosenTaskId) {
+  <app-edit-task-modal
+    [taskId]="chosenTaskId"
+    (closeModal)="closeEditTaskModal()"
   />
   } @if (isDetailsModalOpen && chosenTaskId) {
   <app-task-details-modal
     [taskId]="chosenTaskId"
     (closeModal)="closeDetailsModal()"
-  />
-  } @if (isEditTaskModalOpen && chosenTaskId) {
-  <app-edit-task-modal
-    [taskId]="chosenTaskId"
-    (closeModal)="closeEditTaskModal()"
   />
   }
 </div>

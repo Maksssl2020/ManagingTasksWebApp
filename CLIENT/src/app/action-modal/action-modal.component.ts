@@ -10,7 +10,7 @@ import {
 import { IconsService } from '../services/icons.service';
 import { NgClass } from '@angular/common';
 import { TaskFormComponent } from '../tasks/task-form/task-form.component';
-import { ProjectFormComponent } from '../project-form/project-form.component';
+import { ProjectFormComponent } from '../projects/project-form/project-form.component';
 import { NoteFormComponent } from '../note-form/note-form.component';
 
 @Component({

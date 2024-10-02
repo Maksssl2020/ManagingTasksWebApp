@@ -1,0 +1,20 @@
+<div class="project-data-container">
+  <h2 class="project-title">{{ currentChosenCategoryInSidebar() }}</h2>
+  <div class="buttons-container">
+    <button (click)="handleOpenDetailsModal()" class="details-button">
+      details
+    </button>
+    <button (click)="handleOpenDeleteModal()" class="icon-button">
+      <i [ngClass]="deleteIcon" class="icon"></i>
+    </button>
+  </div>
+
+  @if (isDetailsModalOpen) {
+  <app-project-details-modal
+    [chosenProjectTitle]="currentChosenCategoryInSidebar()"
+    (closeModal)="handleCloseDetailsModal()"
+  />
+  } @else if (isDeleteModalOpen) {
+  <app-delete-warning-modal (cancel)="handleCloseDeleteModal()" />
+  }
+</div>

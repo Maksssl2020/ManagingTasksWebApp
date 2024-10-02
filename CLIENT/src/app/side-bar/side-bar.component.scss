@@ -2,13 +2,14 @@
 @import "../../styles.scss";
 
 .side-bar-container {
-  height: 100%;
+  height: calc(100vh - 115px);
   border-right: 2px solid $custom-gray-color-200;
   display: flex;
   box-sizing: border-box;
   flex-direction: column;
   padding: 40px 20px;
   font-family: "Lato";
+  overflow: hidden;
 }
 
 h2 {

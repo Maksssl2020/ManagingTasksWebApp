@@ -3,9 +3,6 @@
   <button (click)="handleCloseModal()" class="icon-button">
     <i [ngClass]="cancelIcon" class="icon"></i>
   </button>
-  <app-main-task-form
-    [taskData]="chosenTaskData"
-    [buttonName]="'edit'"
-    (formSubmit)="updateTask($event)"
-  />
+  <h1 class="details-title">{{ chosenProjectData?.title }}</h1>
+  <textarea class="details-area" disabled>{{ chosenProjectData?.details }}</textarea>
 </div>

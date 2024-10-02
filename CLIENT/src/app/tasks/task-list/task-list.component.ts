@@ -14,6 +14,9 @@ import { TaskDetailsModalComponent } from '../task-details-modal/task-details-mo
 import { EditTaskModalComponent } from '../edit-task-modal/edit-task-modal.component';
 import { Task } from '../../modules/Task';
 import { of } from 'rxjs';
+import { ProjectService } from '../../services/project.service';
+import { IconsService } from '../../services/icons.service';
+import { ProjectBannerComponent } from '../../projects/project-banner/project-banner.component';
 
 @Component({
   selector: 'app-task-list',
@@ -23,6 +26,7 @@ import { of } from 'rxjs';
     TaskCardComponent,
     TaskDetailsModalComponent,
     EditTaskModalComponent,
+    ProjectBannerComponent,
   ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
@@ -64,6 +68,9 @@ export class TaskListComponent implements OnInit, OnChanges {
     currentDate = new Date();
 
     switch (this.currentChosenCategoryInSidebar()) {
+      case 'all': {
+        return this.userTasks();
+      }
       case 'today': {
         return this.userTasks().filter((task) => {
           const taskDate = new Date(task.deadline);
@@ -77,9 +84,17 @@ export class TaskListComponent implements OnInit, OnChanges {
         });
       }
       default: {
-        return [...this.userTasks()];
+        return this.filterTasksDependsOnProject();
       }
     }
+  }
+
+  filterTasksDependsOnProject() {
+    return this.userTasks().filter((task) => {
+      return (
+        task.project === this.currentChosenCategoryInSidebar().toLowerCase()
+      );
+    });
   }
 
   openDetailsModal(taskId: number) {
@@ -93,9 +108,8 @@ export class TaskListComponent implements OnInit, OnChanges {
   }
 
   openEditTaskModal(taskId: number) {
-    console.log('Opening edit task modal');
-    this.isEditTaskModalOpen = true;
     this.chosenTaskId = taskId;
+    this.isEditTaskModalOpen = true;
   }
 
   closeEditTaskModal() {

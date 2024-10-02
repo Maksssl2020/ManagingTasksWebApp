@@ -98,7 +98,7 @@
   height: 50px;
   width: 125px;
   margin-left: auto;
-  @extend .action-modal-submit-button;
+  @extend .submit-button;
 }
 
 .error-message {

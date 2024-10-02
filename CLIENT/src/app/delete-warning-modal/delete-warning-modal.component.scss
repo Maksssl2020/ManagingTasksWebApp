@@ -1,0 +1,36 @@
+@import "../../variables.scss";
+@import "../../styles.scss";
+
+.modal-container {
+  width: 750px;
+  height: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.delete-title {
+  display: flex;
+  letter-spacing: 2px;
+  font-size: 36px;
+  text-transform: uppercase;
+  @extend .text-gradient;
+}
+
+.delete-subtitle {
+  font-size: 24px;
+}
+
+.buttons-container {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.button {
+  font-size: 16px;
+  width: 250px;
+  height: 50px;
+  @extend .submit-button;
+}

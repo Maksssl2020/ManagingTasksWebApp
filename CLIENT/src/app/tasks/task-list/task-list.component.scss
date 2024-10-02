@@ -3,10 +3,21 @@
 .task-list-container {
   height: 100%;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  font-family: "Lato";
+  color: $custom-white-color-100;
+  gap: 1rem;
+}
+
+.task-cards-container {
+  height: calc(100vh - 120px);
+  box-sizing: border-box;
   padding: 40px;
   display: flex;
   flex-direction: column;
   font-family: "Lato";
   color: $custom-white-color-100;
   gap: 1rem;
+  // overflow-y: auto;
 }

@@ -36,7 +36,7 @@ export class MainTaskFormComponent {
   taskForm = new FormGroup({
     title: new FormControl('', { validators: Validators.required }),
     details: new FormControl('', { validators: Validators.required }),
-    dueDate: new FormControl('', {
+    deadline: new FormControl('', {
       validators: [Validators.required, futureDateValidator],
     }),
   });
@@ -60,6 +60,8 @@ export class MainTaskFormComponent {
     if (this.taskForm.invalid) {
       return;
     }
+
+    console.log('SUBMIT');
 
     const task = {
       ...this.taskForm.value,

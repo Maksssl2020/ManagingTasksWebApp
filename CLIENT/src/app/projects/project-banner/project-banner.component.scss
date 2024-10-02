@@ -1,0 +1,28 @@
+@import "../../../variables.scss";
+
+.project-data-container {
+  height: 100px;
+  padding: 0 40px;
+  border-bottom: 2px solid $custom-gray-color-200;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+}
+
+.project-title {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 28px;
+}
+
+.buttons-container {
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+  gap: 1em;
+}
+
+.icon-button {
+  height: 45px;
+  width: 45px;
+}

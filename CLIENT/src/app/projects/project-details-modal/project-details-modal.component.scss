@@ -1,0 +1,46 @@
+@import "../../../variables.scss";
+@import "../../../styles.scss";
+
+.modal-container {
+  width: 750px;
+  height: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.details-title {
+  display: flex;
+  letter-spacing: 2px;
+  font-size: 28px;
+  text-transform: uppercase;
+  @extend .text-gradient;
+}
+
+.details-area {
+  color: $custom-white-color-100;
+  background-color: transparent;
+  height: 300px;
+  padding: 20px;
+  border: 2px solid $custom-gray-color-100;
+  border-radius: 10px;
+  resize: none;
+  font-size: 18px;
+}
+
+.data-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.icon-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: 1rem;
+  margin-right: 1rem;
+}
+
+.icon {
+  margin-left: 1px;
+}

@@ -16,13 +16,15 @@ export class TaskService {
   baseUrl = environment.apiUrl;
 
   addNewTask(model: any) {
-    return this.http
-      .post<HttpStatusCode>(this.baseUrl.concat('to-do-tasks/save-task'), model)
-      .pipe(
-        tap(() => {
-          this.userTasks.update((tasks) => [...tasks, model]);
-        })
-      );
+    const savedTask = this.http
+      .post<Task>(this.baseUrl.concat('to-do-tasks/save-task'), model)
+      .subscribe({
+        next: (task) => {
+          this.userTasks.set([...this.userTasks(), task]);
+        },
+      });
+
+    return of(savedTask);
   }
 
   deleteUserTask(id: number) {

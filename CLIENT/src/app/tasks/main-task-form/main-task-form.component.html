@@ -6,6 +6,7 @@
   <input
     formControlName="title"
     placeholder="Enter a task title"
+    class="task-title-input"
     [placeholder]="
       taskForm.get('title')?.hasError('required') &&
       taskForm.get('title')?.touched
@@ -16,6 +17,7 @@
   <textarea
     formControlName="details"
     placeholder="Enter task details"
+    class="task-details-textarea"
     [placeholder]="
       taskForm.get('details')?.hasError('required') &&
       taskForm.get('details')?.touched
@@ -23,20 +25,21 @@
         : 'Enter task details'
     "
   ></textarea>
-  <input formControlName="dueDate" type="date" />
-  @if (taskForm.get('dueDate')?.hasError("futureDate") &&
-  taskForm.get('dueDate')?.touched) {
-  <p class="error-message">Date must be in the future!</p>
-  } @else if (taskForm.get('dueDate')?.hasError("required") &&
-  taskForm.get('dueDate')?.touched) {
-  <p class="error-message">Date is required!</p>
-  }
+  <div class="date-container">
+    <input formControlName="deadline" type="date" class="task-date-input" />
+    @if (taskForm.get('deadline')?.hasError("futureDate") &&
+    taskForm.get('deadline')?.touched) {
+    <p class="error-message">Date must be in the future!</p>
+    } @else if (taskForm.get('deadline')?.hasError("required") &&
+    taskForm.get('deadline')?.touched) {
+    <p class="error-message">Date is required!</p>
+    }
+  </div>
   <div class="priority-container">
     <label>Priority:</label>
     <div class="priority-buttons-container">
       @for (priority of priorityLevels; track $index) {
       <app-task-priority-button
-        *ngFor="let priority of priorityLevels"
         [priorityName]="priority"
         [isPrioritySelected]="isPriorityChosen(priority)"
         (selectedPriority)="setChosenPriority($event)"

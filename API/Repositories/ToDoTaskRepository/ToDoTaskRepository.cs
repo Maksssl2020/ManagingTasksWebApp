@@ -45,12 +45,12 @@ public class ToDoTaskRepository(ApplicationDbContext applicationDbContext, IMapp
         .ToListAsync();
     }
 
-    public async Task<HttpStatusCode> SaveTaskAsync(ToDoTask toDoTask)
+    public async Task<ToDoTaskDto> SaveTaskAsync(ToDoTask toDoTask)
     {
         await applicationDbContext.Tasks.AddAsync(toDoTask);
         await applicationDbContext.SaveChangesAsync();
 
-        return HttpStatusCode.OK;
+        return mapper.Map<ToDoTask, ToDoTaskDto>(toDoTask);
     }
 
     public async Task<HttpStatusCode> UpdateTaskAsync(long id, ToDoTaskUpdateRequest toDoTaskUpdateRequest)

@@ -7,7 +7,7 @@ namespace API.Repositories;
 
 public interface IToDoTaskRepository
 {
-    Task<HttpStatusCode> SaveTaskAsync(ToDoTask toDoTask);
+    Task<ToDoTaskDto> SaveTaskAsync(ToDoTask toDoTask);
     Task<ToDoTaskDto?> GetTaskByIdAsync(long id);
     Task<IEnumerable<ToDoTaskDto>> GetTasksByUserIdAsync(long id);
     Task<IEnumerable<ToDoTaskDto>> GetAllTasksAsync();
