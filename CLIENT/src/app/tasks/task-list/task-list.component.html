@@ -1,13 +1,14 @@
 <div class="task-list-container">
-  @if (userTasksToDisplay().length > 0 && userTasksToDisplay()[0].project !==
-  'home') {
+  @if (!['home', 'all', 'today', 'week',
+  'notes'].includes(currentChosenCategoryInSidebar())) {
 
   <app-project-banner
     [currentChosenCategoryInSidebar]="currentChosenCategoryInSidebar()"
+    (projectDeleted)="handleProjectDeleted()"
   />
   }
   <div class="task-cards-container">
-    @for (task of userTasksToDisplay(); track $index) {
+    @for (task of userTasksToDisplay(); track task.id) {
     <app-task-card
       [taskData]="task"
       (editTask)="openEditTaskModal($event)"

@@ -287,6 +287,21 @@ body {
   color: $custom-white-color-100;
 }
 
+.scrollbar {
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @extend .background-gradient;
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    cursor: pointer;
+  }
+}
+
 .icon {
   height: 20px;
   font-size: 20px;

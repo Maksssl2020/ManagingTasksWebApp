@@ -1,0 +1,22 @@
+@import "../../../variables.scss";
+@import "../../../styles.scss";
+
+.note-card {
+  width: 100%;
+  height: fit-content;
+  padding: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.note-title {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.note-content {
+  font-size: 20px;
+  text-justify: auto;
+}

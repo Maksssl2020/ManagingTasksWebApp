@@ -16,6 +16,6 @@ export class DeleteWarningModalComponent {
   }
 
   handleDelete() {
-    this.cancel.emit();
+    this.delete.emit();
   }
 }

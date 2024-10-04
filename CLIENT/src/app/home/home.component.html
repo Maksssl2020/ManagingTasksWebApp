@@ -17,10 +17,16 @@
   }
   <div class="home-data-container">
     <app-side-bar
+      #sidebar
       (currentCategory)="setCurrentChosenCategoryInSidebar($event)"
-    ></app-side-bar>
+    />
+    @if (currentChosenCategoryInSidebar === 'notes') {
+    <app-note-list />
+    } @else {
     <app-task-list
+      (projectDeleted)="handleDeletedProject(sidebar)"
       [currentChosenCategoryInSidebar]="currentChosenCategoryInSidebar"
-    ></app-task-list>
+    />
+    }
   </div>
 </div>

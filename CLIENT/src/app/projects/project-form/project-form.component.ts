@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import {
   FormControl,
@@ -22,6 +22,7 @@ export class ProjectFormComponent {
   private projectService = inject(ProjectService);
   private authenticationService = inject(AuthenticationService);
   private toastr = inject(ToastrService);
+  projectAdded = output<void>();
 
   projectForm = new FormGroup({
     title: new FormControl('', { validators: Validators.required }),
@@ -39,9 +40,12 @@ export class ProjectFormComponent {
       userId: this.authenticationService.currentUser()?.id,
     };
 
+    console.log(projectData);
+
     this.projectService.saveUserProject(projectData).subscribe({
       next: () => {
         this.toastr.success('New project added successfully!');
+        this.projectAdded.emit();
       },
       error: (error) => {
         console.log(error);

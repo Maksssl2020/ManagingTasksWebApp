@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using API.Models.Note;
 using API.Models.Project;
 using API.Models.Task;
 
@@ -16,4 +17,5 @@ public class User
 
     public List<ToDoTask> Tasks { get; set; } = [];
     public List<UserProject> Projects { get; set; } = [];
+    public List<UserNote> Notes { get; set; } = [];
 }

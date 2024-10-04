@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Project } from '../modules/Project';
@@ -45,5 +45,27 @@ export class ProjectService {
       });
 
     return of(savedProject);
+  }
+
+  getProjectIdByItsName(projectName: string) {
+    return this.userProjects()
+      .filter((project) => project.title === projectName)
+      ?.at(0)?.id;
+  }
+
+  deleteUserProject(id: number) {
+    return this.http
+      .delete<HttpStatusCode>(
+        this.baseUrl.concat(`projects/delete-project/${id}`)
+      )
+      .pipe(
+        tap({
+          next: () => {
+            this.userProjects.update((projects) => {
+              return projects.filter((project) => project.id !== id);
+            });
+          },
+        })
+      );
   }
 }

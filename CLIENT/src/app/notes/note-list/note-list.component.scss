@@ -1,0 +1,20 @@
+@import "../../../variables.scss";
+@import "../../../styles.scss";
+
+.note-list-container {
+  height: 100%;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  font-family: "Lato";
+  color: $custom-white-color-100;
+  padding: 40px;
+  gap: 1rem;
+}
+
+.note-card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  column-span: 1;
+}

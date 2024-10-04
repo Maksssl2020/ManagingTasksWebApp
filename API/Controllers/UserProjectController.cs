@@ -1,7 +1,8 @@
 using System;
+using System.Net;
 using API.DTOs.Project;
 using API.Models.Project;
-using API.Repositories.ProjectRepository;
+using API.Repositories.UserProjectRepository;
 using API.Repositories.UsersRepository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,5 +44,18 @@ public class UserProjectController(IUserProjectRepository userProjectRepository,
         };
 
         return await userProjectRepository.SaveProjectAsync(userProject);
+    }
+
+    [HttpDelete("delete-project/{id}")]
+    public async Task<ActionResult<HttpStatusCode>> DeleteProject(long id)
+    {
+        var foundProject = await userProjectRepository.GetUserProjectAsync(id);
+
+        if (foundProject == null)
+        {
+            return BadRequest("Cannot find project!");
+        }
+
+        return await userProjectRepository.DeleteProjectAsync(id);
     }
 }

@@ -8,7 +8,7 @@ using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
-namespace API.Repositories.ProjectRepository;
+namespace API.Repositories.UserProjectRepository;
 
 public class UserProjectRepository(ApplicationDbContext applicationDbContext, IMapper mapper) : IUserProjectRepository
 {
@@ -19,6 +19,14 @@ public class UserProjectRepository(ApplicationDbContext applicationDbContext, IM
         .ExecuteDeleteAsync();
 
         return affectedRows > 0 ? HttpStatusCode.NoContent : throw new ArgumentException("Project not found!");
+    }
+
+    public async Task<UserProjectDto?> GetUserProjectAsync(long projectId)
+    {
+        return await applicationDbContext.Projects
+        .Where(project => project.Id == projectId)
+        .ProjectTo<UserProjectDto>(mapper.ConfigurationProvider)
+        .FirstOrDefaultAsync();
     }
 
     public async Task<IEnumerable<UserProjectDto>> GetUserProjectsAsync(long userId)

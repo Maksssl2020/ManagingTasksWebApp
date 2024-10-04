@@ -1,0 +1,6 @@
+<div class="note-list-container">
+  <div *ngFor="let note of userNotes()" class="note-card-container">
+    <h3>{{ note.title }}</h3>
+    <p>{{ note.details }}</p>
+  </div>
+</div>

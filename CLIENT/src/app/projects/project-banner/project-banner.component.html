@@ -15,6 +15,9 @@
     (closeModal)="handleCloseDetailsModal()"
   />
   } @else if (isDeleteModalOpen) {
-  <app-delete-warning-modal (cancel)="handleCloseDeleteModal()" />
+  <app-delete-warning-modal
+    (cancel)="handleCloseDeleteModal()"
+    (delete)="handleDeleteUserProject()"
+  />
   }
 </div>

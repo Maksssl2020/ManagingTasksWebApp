@@ -6,17 +6,15 @@ import {
   input,
   OnChanges,
   OnInit,
+  output,
   SimpleChanges,
 } from '@angular/core';
+import { Task } from '../../modules/Task';
+import { ProjectBannerComponent } from '../../projects/project-banner/project-banner.component';
 import { TaskService } from '../../services/task.service';
+import { EditTaskModalComponent } from '../edit-task-modal/edit-task-modal.component';
 import { TaskCardComponent } from '../task-card/task-card.component';
 import { TaskDetailsModalComponent } from '../task-details-modal/task-details-modal.component';
-import { EditTaskModalComponent } from '../edit-task-modal/edit-task-modal.component';
-import { Task } from '../../modules/Task';
-import { of } from 'rxjs';
-import { ProjectService } from '../../services/project.service';
-import { IconsService } from '../../services/icons.service';
-import { ProjectBannerComponent } from '../../projects/project-banner/project-banner.component';
 
 @Component({
   selector: 'app-task-list',
@@ -39,6 +37,7 @@ export class TaskListComponent implements OnInit, OnChanges {
   chosenTaskId?: number;
   currentChosenCategoryInSidebar = input.required<string>();
   userTasksToDisplay = computed(() => this.filterUserTasksToDisplay());
+  projectDeleted = output<void>();
 
   ngOnInit() {
     this.loadUserTasks();
@@ -74,7 +73,7 @@ export class TaskListComponent implements OnInit, OnChanges {
       case 'today': {
         return this.userTasks().filter((task) => {
           const taskDate = new Date(task.deadline);
-          taskDate.toDateString() === currentDate.toDateString();
+          return taskDate.toDateString() === currentDate.toDateString();
         });
       }
       case 'week': {
@@ -114,5 +113,9 @@ export class TaskListComponent implements OnInit, OnChanges {
 
   closeEditTaskModal() {
     this.isEditTaskModalOpen = false;
+  }
+
+  handleProjectDeleted() {
+    this.projectDeleted.emit();
   }
 }

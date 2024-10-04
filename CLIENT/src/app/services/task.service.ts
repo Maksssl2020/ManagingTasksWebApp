@@ -1,7 +1,15 @@
-import { HttpClient, HttpStatusCode } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpStatusCode } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { Task } from '../modules/Task';
-import { BehaviorSubject, catchError, map, of, tap, throwError } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  map,
+  of,
+  tap,
+  throwError,
+  zip,
+} from 'rxjs';
 import { AuthenticationService } from './authentication.service';
 import { environment } from '../../environments/environment';
 import { TaskUpdateRequest } from '../modules/TaskUpdateRequest';
@@ -38,6 +46,28 @@ export class TaskService {
             this.userTasks.update((tasks) =>
               tasks.filter((task) => task.id !== id)
             );
+          },
+        })
+      );
+  }
+
+  deleteUserTasks(tasksId: number[]) {
+    const params = new HttpParams();
+
+    tasksId.forEach((id) => {
+      params.set('tasksId', id.toString());
+    });
+
+    return this.http
+      .delete<HttpStatusCode>(this.baseUrl.concat('to-do-tasks/delete-tasks'), {
+        params,
+      })
+      .pipe(
+        tap({
+          next: () => {
+            this.userTasks.update((tasks) => {
+              return tasks.filter((task) => !tasksId.includes(task.id));
+            });
           },
         })
       );
@@ -87,5 +117,19 @@ export class TaskService {
           );
         })
       );
+  }
+
+  getTasksIdsDependsOnProjectName(projectName: string): number[] {
+    const tasksIds: number[] = [];
+
+    this.userTasks().forEach((task) => {
+      if (
+        task.project.toLocaleLowerCase() === projectName.toLocaleLowerCase()
+      ) {
+        tasksIds.push(task.id);
+      }
+    });
+
+    return tasksIds;
   }
 }

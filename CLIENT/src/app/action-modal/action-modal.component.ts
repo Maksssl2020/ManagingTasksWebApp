@@ -11,7 +11,7 @@ import { IconsService } from '../services/icons.service';
 import { NgClass } from '@angular/common';
 import { TaskFormComponent } from '../tasks/task-form/task-form.component';
 import { ProjectFormComponent } from '../projects/project-form/project-form.component';
-import { NoteFormComponent } from '../note-form/note-form.component';
+import { NoteFormComponent } from '../notes/note-form/note-form.component';
 
 @Component({
   selector: 'app-add-task-modal',
@@ -41,7 +41,7 @@ export class ActionModalComponent {
     return this.activeCategory === category;
   }
 
-  handleTaskAdded() {
+  handleDataAdded() {
     this.closeModal.emit();
     this.newTaskAdded.emit();
   }

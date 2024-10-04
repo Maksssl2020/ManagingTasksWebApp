@@ -1,4 +1,11 @@
-import { Component, inject, OnInit, output, Signal } from '@angular/core';
+import {
+  Component,
+  inject,
+  input,
+  OnInit,
+  output,
+  Signal,
+} from '@angular/core';
 import { ActionModalComponent } from '../action-modal/action-modal.component';
 import { NgClass } from '@angular/common';
 import { ProjectService } from '../services/project.service';
@@ -12,25 +19,21 @@ import { ProjectService } from '../services/project.service';
 })
 export class SideBarComponent implements OnInit {
   private projectService = inject(ProjectService);
-  userProjects = this.projectService.userProjects();
+  userProjects = this.projectService.userProjects;
   chosenCategory!: string;
   isActionModalOpen = false;
+  // projectDeleted = input<void>();
   currentCategory = output<string>();
 
   ngOnInit(): void {
+    this.loadUserProjects();
     this.chosenCategory = 'all';
     this.currentCategory.emit(this.chosenCategory);
-    this.loadUserProjects();
-    console.log(this.userProjects);
   }
 
   loadUserProjects() {
     this.projectService.getUserProjects().subscribe({
-      next: (projects) => {
-        console.log(projects);
-        this.userProjects = [...projects];
-        this.projectService.userProjects.set(projects);
-      },
+      next: (projects) => this.projectService.userProjects.set(projects),
     });
   }
 
@@ -53,5 +56,9 @@ export class SideBarComponent implements OnInit {
 
   handleDataAdded() {
     this.isActionModalOpen = false;
+  }
+
+  handleProjectDeleted() {
+    this.setChosenCategory('home');
   }
 }

@@ -13,7 +13,32 @@ namespace API.Repositories.ToDoTaskRepository;
 
 public class ToDoTaskRepository(ApplicationDbContext applicationDbContext, IMapper mapper) : IToDoTaskRepository
 {
-    public async Task<HttpStatusCode> DeleteTask(long id)
+    public async Task<(HttpStatusCode status, int deletedCount)> DeleteAllTasksAsync(long[] tasksId)
+    {
+
+        using var transaction = await applicationDbContext.Database.BeginTransactionAsync();
+
+        try
+        {
+            var affectedRows = await applicationDbContext.Tasks
+            .Where(task => tasksId.Contains(task.Id))
+            .ExecuteDeleteAsync();
+
+            await transaction.CommitAsync();
+
+            var status = affectedRows == tasksId.Length ? HttpStatusCode.NoContent : HttpStatusCode.PartialContent;
+
+            return (status, affectedRows);
+        }
+        catch (Exception)
+        {
+            await transaction.RollbackAsync();
+            return (HttpStatusCode.InternalServerError, 0);
+        }
+
+    }
+
+    public async Task<HttpStatusCode> DeleteTaskAsync(long id)
     {
         var affectedRows = await applicationDbContext.Tasks
         .Where(task => task.Id == id)

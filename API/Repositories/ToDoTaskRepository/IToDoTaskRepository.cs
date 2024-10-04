@@ -12,5 +12,6 @@ public interface IToDoTaskRepository
     Task<IEnumerable<ToDoTaskDto>> GetTasksByUserIdAsync(long id);
     Task<IEnumerable<ToDoTaskDto>> GetAllTasksAsync();
     Task<HttpStatusCode> UpdateTaskAsync(long id, ToDoTaskUpdateRequest toDoTaskUpdateRequest);
-    Task<HttpStatusCode> DeleteTask(long id);
+    Task<HttpStatusCode> DeleteTaskAsync(long id);
+    Task<(HttpStatusCode status, int deletedCount)> DeleteAllTasksAsync(long[] tasksId);
 }

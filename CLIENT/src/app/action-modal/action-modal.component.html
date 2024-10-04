@@ -33,10 +33,10 @@
     @if (isActiveCategory('task')) {
     <app-task-form
       [chosenSideBarCategory]="activeSideBarCategory()"
-      (newTaskAdded)="handleTaskAdded()"
+      (newTaskAdded)="handleDataAdded()"
     />
     } @else if(isActiveCategory('project')) {
-    <app-project-form />
+    <app-project-form (projectAdded)="handleDataAdded()" />
     } @else if(isActiveCategory('note')) {
     <app-note-form />
     }

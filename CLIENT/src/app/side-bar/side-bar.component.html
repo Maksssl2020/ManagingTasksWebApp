@@ -1,7 +1,7 @@
 <div class="side-bar-container">
   <div class="categories-container">
     <h2>Tasks</h2>
-    <ul class="subcategories-list">
+    <ul class="tasks-subcategories-list">
       <li
         class="category"
         [ngClass]="{ active: isCategoryChosen('all') }"
@@ -25,7 +25,7 @@
       </li>
     </ul>
     <h2>Projects</h2>
-    <ul class="subcategories-list">
+    <ul class="projects-subcategories-list">
       <li
         class="category"
         [ngClass]="{ active: isCategoryChosen('home') }"
@@ -33,8 +33,8 @@
       >
         Home
       </li>
-      @if (userProjects.length > 0) { @for (project of userProjects; track
-      $index) {
+      @if (userProjects().length > 0) { @for (project of userProjects(); track
+      project.id) {
       <li
         class="category"
         [ngClass]="{ active: isCategoryChosen(project.title) }"

@@ -109,6 +109,25 @@ public class ToDoTaskController(IToDoTaskRepository toDoTaskRepository, IUserRep
     [HttpDelete("delete-task/{id}")]
     public async Task<ActionResult<HttpStatusCode>> DeleteTask(long id)
     {
-        return await toDoTaskRepository.DeleteTask(id);
+        return await toDoTaskRepository.DeleteTaskAsync(id);
+    }
+
+    [HttpDelete("delete-tasks")]
+    public async Task<ActionResult<HttpStatusCode>> DeleteAllTasks([FromQuery] long[] tasksId)
+    {
+        var (status, deletedCount) = await toDoTaskRepository.DeleteAllTasksAsync(tasksId);
+
+        if (status == HttpStatusCode.NoContent)
+        {
+            return NoContent();
+        }
+        else if (status == HttpStatusCode.PartialContent)
+        {
+            return StatusCode((int)HttpStatusCode.PartialContent, new { message = $"Only {deletedCount} tasks could be deleted!" });
+        }
+        else
+        {
+            return BadRequest("Deleting tasks failed!");
+        }
     }
 }
