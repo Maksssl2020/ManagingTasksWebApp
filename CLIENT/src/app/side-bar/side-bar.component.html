@@ -44,7 +44,13 @@
       </li>
       } }
     </ul>
-    <h2 (click)="setChosenCategory('notes')">Notes</h2>
+    <h2
+      style="cursor: pointer"
+      [ngClass]="{ active: isCategoryChosen('notes') }"
+      (click)="setChosenCategory('notes')"
+    >
+      Notes
+    </h2>
   </div>
   <button (click)="openModal()" class="add-button">ADD new</button>
 

@@ -1,12 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { NoteService } from '../../services/note.service';
-import { ToastrService } from 'ngx-toastr';
 import {
   FormBuilder,
-  FormGroup,
   ReactiveFormsModule,
-  Validators,
+  Validators
 } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { NoteService } from '../../services/note.service';
 
 @Component({
   selector: 'app-note-form',
@@ -25,5 +24,23 @@ export class NoteFormComponent {
     details: ['', Validators.required],
   });
 
-  handleAddNewNote() {}
+  handleAddNewNote() {
+    if (this.noteForm.invalid) {
+      return;
+    }
+
+    const noteData = {
+      title: this.noteForm.value.title,
+      details: this.noteForm.value.details,
+    };
+
+    this.noteService.saveUserNote(noteData).subscribe({
+      next: () => {
+        this.toastr.success('Added new note!');
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
 }

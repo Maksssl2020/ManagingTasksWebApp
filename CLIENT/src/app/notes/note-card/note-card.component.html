@@ -1,4 +1,12 @@
 <div class="note-card">
+  <button (click)="handleNoteDelete()" type="button" class="icon-button">
+    <i [ngClass]="cancelIcon" class="cancel-icon"></i>
+  </button>
   <h1 class="note-title">{{ userNoteData().title }}</h1>
-  <textarea class="note-content">{{ userNoteData().details }}</textarea>
+  <textarea
+    #noteContent
+    class="note-content"
+    (input)="adjustHeight(noteContent)"
+    >{{ userNoteData().details }}</textarea
+  >
 </div>

@@ -2,15 +2,25 @@
   <input
     type="text"
     class="note-title-input"
-    placeholder="Enter a note title"
     formControlName="title"
+    [placeholder]="
+      noteForm.get('title')?.touched && noteForm.get('title')?.errors
+        ? 'Please enter a title data!'
+        : 'Enter a note title'
+    "
   />
   <textarea
-    placeholder="Enter a note details"
     class="note-details-textarea"
     formControlName="details"
+    [placeholder]="
+      noteForm.get('details')?.touched && noteForm.get('details')?.errors
+        ? 'Please enter a details data!'
+        : 'Enter a note details'
+    "
   ></textarea>
   <div class="submit-button-container">
-    <button class="note-submit-button">Add note</button>
+    <button (click)="handleAddNewNote()" class="note-submit-button">
+      Add note
+    </button>
   </div>
 </form>

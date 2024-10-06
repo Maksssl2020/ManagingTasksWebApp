@@ -1,3 +1,4 @@
+// @import "mdb-angular-ui-kit/assets/scss/mdb.scss";
 @import "./variables.scss";
 @import "ngx-toastr/toastr";
 
@@ -141,7 +142,7 @@ body {
   height: 100%;
   background: rgba(0, 0, 0, 0.01);
   backdrop-filter: blur(10px);
-  z-index: 0;
+  z-index: 1;
 }
 
 .details-button {
@@ -303,8 +304,9 @@ body {
 }
 
 .icon {
-  height: 20px;
   font-size: 20px;
+  height: 20px;
+  width: 20px;
 }
 
 .lato-light {

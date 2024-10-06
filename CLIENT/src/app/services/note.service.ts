@@ -3,7 +3,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { AuthenticationService } from './authentication.service';
 import { Note } from '../modules/Note';
-import { of, tap } from 'rxjs';
+import { BehaviorSubject, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,26 +11,23 @@ import { of, tap } from 'rxjs';
 export class NoteService {
   private http = inject(HttpClient);
   private authenticationService = inject(AuthenticationService);
+  userNotesSubject = new BehaviorSubject<Note[]>([]);
   baseUrl = environment.apiUrl;
-  userNotes = signal<Note[]>([]);
+  userNotes$ = this.userNotesSubject.asObservable();
 
   getUserNotes() {
-    return this.http
-      .get<Note[]>(
-        this.baseUrl.concat(
-          `user-notes/get-user-notes/${
-            this.authenticationService.currentUser()?.id
-          }`
-        )
+    return this.http.get<Note[]>(
+      this.baseUrl.concat(
+        `user-notes/get-user-notes/${
+          this.authenticationService.currentUser()?.id
+        }`
       )
-      .pipe(
-        tap({
-          next: (n) => this.userNotes.set(n),
-        })
-      );
+    );
   }
 
   saveUserNote(model: any) {
+    console.log(model);
+
     const savedNotes = this.http
       .post<Note>(
         this.baseUrl.concat(
@@ -39,25 +36,22 @@ export class NoteService {
         model
       )
       .subscribe({
-        next: (note) =>
-          this.userNotes.update((currentNotes) => [...currentNotes, note]),
+        next: (note) => {
+          const currentNotes = this.userNotesSubject.getValue();
+          this.userNotesSubject.next([...currentNotes, note]);
+        },
       });
 
     return of(savedNotes);
   }
 
   deleteUserNote(noteId: number) {
-    this.http
-      .delete<HttpStatusCode>(
-        this.baseUrl.concat(`user-notes/delete-note/${noteId}`)
-      )
-      .pipe(
-        tap({
-          next: () =>
-            this.userNotes.update((notes) => {
-              return notes.filter((note) => note.id !== noteId);
-            }),
-        })
-      );
+    const currentNotes = this.userNotesSubject.getValue();
+    const updatedNotes = currentNotes.filter((note) => note.id !== noteId);
+    this.userNotesSubject.next(updatedNotes);
+
+    return this.http.delete<HttpStatusCode>(
+      this.baseUrl.concat(`user-notes/delete-note/${noteId}`)
+    );
   }
 }

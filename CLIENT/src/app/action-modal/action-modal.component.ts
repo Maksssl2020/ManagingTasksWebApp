@@ -1,17 +1,9 @@
-import {
-  Component,
-  EventEmitter,
-  inject,
-  Input,
-  input,
-  output,
-  Output,
-} from '@angular/core';
-import { IconsService } from '../services/icons.service';
 import { NgClass } from '@angular/common';
-import { TaskFormComponent } from '../tasks/task-form/task-form.component';
-import { ProjectFormComponent } from '../projects/project-form/project-form.component';
+import { Component, inject, input, output } from '@angular/core';
 import { NoteFormComponent } from '../notes/note-form/note-form.component';
+import { ProjectFormComponent } from '../projects/project-form/project-form.component';
+import { IconsService } from '../services/icons.service';
+import { TaskFormComponent } from '../tasks/task-form/task-form.component';
 
 @Component({
   selector: 'app-add-task-modal',

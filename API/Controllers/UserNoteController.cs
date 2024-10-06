@@ -47,7 +47,7 @@ public class UserNoteController(IUserNoteRepository userNoteRepository, IUserRep
         return await userNoteRepository.SaveNoteAsync(userNote);
     }
 
-    [HttpDelete("delete-user-note/{userNoteId}")]
+    [HttpDelete("delete-note/{userNoteId}")]
     public async Task<ActionResult<HttpStatusCode>> DeleteUserNote(long userNoteId)
     {
         try
