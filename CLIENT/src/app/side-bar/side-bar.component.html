@@ -52,13 +52,12 @@
       Notes
     </h2>
   </div>
-  <button (click)="openModal()" class="add-button">ADD new</button>
+  <button (click)="toggleModal()" class="add-button">ADD new</button>
 
-  @if (isActionModalOpen) {
-  <app-add-task-modal
+  <app-action-modal
     [activeSideBarCategory]="chosenCategory"
     (newTaskAdded)="handleDataAdded()"
-    (closeModal)="closeModal()"
+    (closeModal)="toggleModal()"
+    [isModalOpen]="isActionModalOpen"
   />
-  }
 </div>

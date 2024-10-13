@@ -18,9 +18,7 @@ export class NoteService {
   getUserNotes() {
     return this.http.get<Note[]>(
       this.baseUrl.concat(
-        `user-notes/get-user-notes/${
-          this.authenticationService.currentUser()?.id
-        }`
+        `user-notes/get-user-notes/${this.authenticationService.currentUserId()}`
       )
     );
   }
@@ -31,7 +29,8 @@ export class NoteService {
     const savedNotes = this.http
       .post<Note>(
         this.baseUrl.concat(
-          `user-notes/add-note/${this.authenticationService.currentUser()?.id}`
+          `user-notes/add-note/${this.authenticationService.currentUserId()}
+          `
         ),
         model
       )

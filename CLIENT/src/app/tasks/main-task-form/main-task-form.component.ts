@@ -58,6 +58,7 @@ export class MainTaskFormComponent {
 
   submitTask() {
     if (this.taskForm.invalid) {
+      console.log(this.taskForm.controls);
       return;
     }
 

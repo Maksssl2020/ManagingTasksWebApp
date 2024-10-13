@@ -1,4 +1,4 @@
-import { NgClass } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 import {
   Component,
   computed,
@@ -25,6 +25,7 @@ import { TaskDetailsModalComponent } from '../task-details-modal/task-details-mo
     TaskDetailsModalComponent,
     EditTaskModalComponent,
     ProjectBannerComponent,
+    NgIf,
   ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
@@ -34,6 +35,7 @@ export class TaskListComponent implements OnInit, OnChanges {
   userTasks = this.tasksService.userTasks;
   isDetailsModalOpen = false;
   isEditTaskModalOpen = false;
+  chosenTaskData!: Task;
   chosenTaskId?: number;
   currentChosenCategoryInSidebar = input.required<string>();
   userTasksToDisplay = computed(() => this.filterUserTasksToDisplay());
@@ -99,6 +101,8 @@ export class TaskListComponent implements OnInit, OnChanges {
   openDetailsModal(taskId: number) {
     this.isDetailsModalOpen = true;
     this.chosenTaskId = taskId;
+
+    this.chosenTaskData = this.findTaskById(taskId);
   }
 
   closeDetailsModal() {
@@ -109,6 +113,8 @@ export class TaskListComponent implements OnInit, OnChanges {
   openEditTaskModal(taskId: number) {
     this.chosenTaskId = taskId;
     this.isEditTaskModalOpen = true;
+
+    this.chosenTaskData = this.findTaskById(taskId);
   }
 
   closeEditTaskModal() {
@@ -117,5 +123,9 @@ export class TaskListComponent implements OnInit, OnChanges {
 
   handleProjectDeleted() {
     this.projectDeleted.emit();
+  }
+
+  private findTaskById(taskId: number): Task {
+    return this.userTasks().filter((task) => task.id === taskId)[0];
   }
 }

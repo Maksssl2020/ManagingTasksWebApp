@@ -46,17 +46,8 @@ p {
 
 .authentication-button {
   width: 45%;
-  border-radius: 20px;
-  background-color: transparent;
-  border: 2px solid #fbfbfb;
-  cursor: pointer;
-  color: #fbfbfb;
-  text-transform: uppercase;
-  letter-spacing: 4px;
   font-size: 24px;
-  font-weight: 200;
-  position: relative;
-  overflow: hidden;
+  @extend .submit-button;
 }
 
 .authentication-button:hover {

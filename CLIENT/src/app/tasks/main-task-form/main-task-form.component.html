@@ -27,8 +27,7 @@
   ></textarea>
   <div class="date-container">
     <input formControlName="deadline" type="date" class="task-date-input" />
-    @if (taskForm.get('deadline')?.hasError("futureDate") &&
-    taskForm.get('deadline')?.touched) {
+    @if (taskForm.get('deadline')?.hasError("futureDate")) {
     <p class="error-message">Date must be in the future!</p>
     } @else if (taskForm.get('deadline')?.hasError("required") &&
     taskForm.get('deadline')?.touched) {

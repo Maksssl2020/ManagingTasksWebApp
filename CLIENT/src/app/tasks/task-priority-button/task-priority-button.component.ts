@@ -13,11 +13,11 @@ export class TaskPriorityButtonComponent {
   isPrioritySelected = input.required<boolean>();
   selectedPriority = output<string>();
 
-  getButtonStylingDepensOnPriorityName(name: string) {
+  getButtonStylingDependsOnPriorityName(name: string) {
     return `.button-overlay-${name}`;
   }
 
-  getTextStylingDepensOnPriorityName(name: string) {
+  getTextStylingDependsOnPriorityName(name: string) {
     return `.priority-button-text-${name}`;
   }
 

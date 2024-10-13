@@ -8,21 +8,10 @@
   align-items: center;
   box-sizing: border-box;
   border-radius: 10px;
+  transition: background-color 0.3s ease-in-out;
 
   &.button-overlay-selected {
-    background: $custom-white-color-100 !important;
-  }
-
-  &.button-overlay-low {
-    @extend .low-priority-level-bg-gradient;
-  }
-
-  &.button-overlay-medium {
-    @extend .medium-priority-level-bg-gradient;
-  }
-
-  &.button-overlay-high {
-    @extend .high-priority-level-bg-gradient;
+    background-color: $custom-white-color-100 !important;
   }
 }
 
@@ -33,16 +22,20 @@
   border-radius: 8px;
   border: 0px;
   cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
 
   &.priority-button-active-low {
+    background-color: rgba(50, 205, 50, 0.7);
     @extend .low-priority-level-bg-gradient;
   }
 
   &.priority-button-active-medium {
+    background-color: rgba(255, 165, 0, 0.7);
     @extend .medium-priority-level-bg-gradient;
   }
 
   &.priority-button-active-high {
+    background-color: rgba(255, 69, 0, 0.7);
     @extend .high-priority-level-bg-gradient;
   }
 }
@@ -58,17 +51,5 @@
   &.priority-button-text-selected {
     -webkit-text-fill-color: $custom-white-color-100;
     background: transparent !important;
-  }
-
-  &.priority-button-text-low {
-    @extend .low-priority-level-text-gradient;
-  }
-
-  &.priority-button-text-medium {
-    @extend .medium-priority-level-text-gradient;
-  }
-
-  &.priority-button-text-high {
-    @extend .high-priority-level-text-gradient;
   }
 }

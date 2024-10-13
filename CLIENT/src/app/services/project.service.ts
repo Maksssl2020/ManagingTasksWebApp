@@ -18,9 +18,7 @@ export class ProjectService {
     return this.http
       .get<Project[]>(
         this.baseUrl.concat(
-          `projects/user-projects/${
-            this.authenticationService.currentUser()?.id
-          }`
+          `projects/user-projects/${this.authenticationService.currentUserId()}`
         )
       )
       .pipe(
@@ -34,7 +32,8 @@ export class ProjectService {
     const savedProject = this.http
       .post<Project>(
         this.baseUrl.concat(
-          `projects/add-project/${this.authenticationService.currentUser()?.id}`
+          `projects/add-project/${this.authenticationService.currentUserId()}
+          }`
         ),
         model
       )

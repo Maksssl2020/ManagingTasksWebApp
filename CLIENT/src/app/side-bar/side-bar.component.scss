@@ -73,8 +73,10 @@ h2 {
   font-weight: 400;
   letter-spacing: 2px;
   margin-top: auto;
-}
+  transition: background-color 0.3s ease-in-out;
 
-.add-button:hover {
-  @extend .background-gradient;
+  &:hover {
+    background-color: #e91e63;
+    @extend .background-gradient;
+  }
 }

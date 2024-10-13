@@ -5,6 +5,7 @@ import { TaskService } from '../../services/task.service';
 import { MainTaskFormComponent } from '../main-task-form/main-task-form.component';
 import { IconsService } from '../../services/icons.service';
 import { NgClass } from '@angular/common';
+import { openCloseModalAnimation } from '../../animations/animations';
 
 @Component({
   selector: 'app-edit-task-modal',
@@ -12,30 +13,27 @@ import { NgClass } from '@angular/common';
   imports: [MainTaskFormComponent, NgClass],
   templateUrl: './edit-task-modal.component.html',
   styleUrl: './edit-task-modal.component.scss',
+  animations: [openCloseModalAnimation],
 })
 export class EditTaskModalComponent implements OnInit {
   private taskService = inject(TaskService);
   private iconService = inject(IconsService);
   private toastr = inject(ToastrService);
-  taskId = input.required<number>();
-  chosenTaskData!: Task;
+  taskData = input.required<Task>();
   closeModal = output<void>();
   cancelIcon = this.iconService.getIcon('cancel');
+  isModalOpen: boolean = false;
 
   ngOnInit(): void {
-    this.loadChosenTask();
-  }
-
-  loadChosenTask() {
-    this.taskService.getUserTask(this.taskId()).subscribe({
-      next: (task) => {
-        this.chosenTaskData = task;
-      },
-    });
+    if (this.taskData()) {
+      setTimeout(() => {
+        this.isModalOpen = true;
+      });
+    }
   }
 
   updateTask(model: any) {
-    const updatedTask = { id: this.taskId(), ...model };
+    const updatedTask = { id: this.taskData().id, ...model };
     console.log(updatedTask);
     this.taskService.updateUserTask(updatedTask).subscribe({
       next: () => {
@@ -46,6 +44,10 @@ export class EditTaskModalComponent implements OnInit {
   }
 
   handleCloseModal() {
-    this.closeModal.emit();
+    this.isModalOpen = false;
+
+    setTimeout(() => {
+      this.closeModal.emit();
+    }, 300);
   }
 }

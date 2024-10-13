@@ -1,8 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { map } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { User } from '../modules/User';
 import { environment } from '../../environments/environment';
+import e from 'express';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,15 @@ import { environment } from '../../environments/environment';
 export class AuthenticationService {
   private http = inject(HttpClient);
   baseUrl = environment.apiUrl;
-  currentUser = signal<User | null>(null);
+  currentUserSubject = new BehaviorSubject<User | null>(null);
+
+  currentUser(): Observable<User | null> {
+    return this.currentUserSubject.asObservable();
+  }
+
+  currentUserId(): number | undefined {
+    return this.currentUserSubject.getValue()?.id;
+  }
 
   register(model: any) {
     return this.http
@@ -19,7 +28,7 @@ export class AuthenticationService {
         map((user) => {
           if (user) {
             localStorage.setItem('user', JSON.stringify(user));
-            this.currentUser.set(user);
+            this.currentUserSubject.next(user);
           }
           return user;
         })
@@ -33,7 +42,7 @@ export class AuthenticationService {
         map((user) => {
           if (user) {
             localStorage.setItem('user', JSON.stringify(user)),
-              this.currentUser.set(user);
+              this.currentUserSubject.next(user);
           }
           return user;
         })
@@ -42,7 +51,7 @@ export class AuthenticationService {
 
   logout() {
     localStorage.removeItem('user');
-    this.currentUser.set(null);
+    this.currentUserSubject.next(null);
   }
 
   checkUsername(username: string) {

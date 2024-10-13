@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { SideBarComponent } from '../side-bar/side-bar.component';
 import { TaskListComponent } from '../tasks/task-list/task-list.component';
 import { NoteListComponent } from '../notes/note-list/note-list.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -15,11 +16,18 @@ import { NoteListComponent } from '../notes/note-list/note-list.component';
 export class HomeComponent implements OnInit {
   private authenticationService = inject(AuthenticationService);
   private router = inject(Router);
-  isUserLogged = this.authenticationService.currentUser() !== null;
+  isUserLogged: boolean = false;
   currentChosenCategoryInSidebar!: string;
+  private authSubscription!: Subscription;
 
   ngOnInit(): void {
     this.currentChosenCategoryInSidebar = 'all';
+
+    this.authSubscription = this.authenticationService
+      .currentUser()
+      .subscribe((user) => {
+        this.isUserLogged = user !== null;
+      });
   }
 
   signIn() {

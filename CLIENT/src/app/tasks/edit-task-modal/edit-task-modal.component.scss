@@ -19,26 +19,6 @@
   margin-left: 1px;
 }
 
-.priority-level {
-  width: 30px;
-  height: 30px;
-  background-color: aqua;
-  border-radius: 100%;
-  margin-right: 2rem;
-
-  &.priority-level-low {
-    @extend .low-priority-level-bg-gradient;
-  }
-
-  &.priority-level-medium {
-    @extend .medium-priority-level-bg-gradient;
-  }
-
-  &.priority-level-high {
-    @extend .high-priority-level-bg-gradient;
-  }
-}
-
 .icon {
   height: 20px;
   font-size: 20px;

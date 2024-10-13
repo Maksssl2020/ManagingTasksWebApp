@@ -77,7 +77,7 @@ export class TaskService {
     return this.http
       .get<Task[]>(
         this.baseUrl.concat(
-          `to-do-tasks/all/user/${this.authenticationService.currentUser()?.id}`
+          `to-do-tasks/all/user/${this.authenticationService.currentUserId()}`
         )
       )
       .pipe(

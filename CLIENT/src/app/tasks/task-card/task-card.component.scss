@@ -8,10 +8,11 @@
   padding: 0 20px;
   display: flex;
   align-items: center;
-}
+  transition: border 0.3s ease-in-out;
 
-.task-card:hover {
-  border: 2px solid $custom-white-color-100;
+  &:hover {
+    border: 2px solid $custom-white-color-100;
+  }
 }
 
 .priority-level {
@@ -39,28 +40,4 @@
   margin-left: auto;
   align-items: center;
   gap: 1rem;
-}
-
-.icon-button {
-  width: 40px;
-  height: 40px;
-  background-color: transparent;
-  border: 2px solid $custom-gray-color-100;
-  border-radius: 10px;
-  box-sizing: border-box;
-  color: $custom-gray-color-100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.icon-button:hover {
-  border: 2px solid $custom-white-color-100;
-  color: $custom-white-color-100;
-}
-
-.icon {
-  height: 20px;
-  font-size: 20px;
 }

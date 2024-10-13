@@ -1,44 +1,45 @@
-<div class="modal-overlay"></div>
-<div class="modal-container">
-  <div class="modal-header">
-    <h1 class="modal-title">Add New Task or Note</h1>
-    <button type="button" (click)="closeModal.emit()" class="icon-button">
-      <i [ngClass]="cancelIcon" class="icon"></i>
-    </button>
-  </div>
-  <div class="options-container">
-    <div class="modal-sidebar">
-      <p
-        class="option-category"
-        [ngClass]="{ 'option-category-active': isActiveCategory('task') }"
-        (click)="setActiveCategory('task')"
-      >
-        Task
-      </p>
-      <p
-        class="option-category"
-        [ngClass]="{ 'option-category-active': isActiveCategory('project') }"
-        (click)="setActiveCategory('project')"
-      >
-        Project
-      </p>
-      <p
-        class="option-category"
-        [ngClass]="{ 'option-category-active': isActiveCategory('note') }"
-        (click)="setActiveCategory('note')"
-      >
-        Note
-      </p>
+<div class="modal-overlay" [@openCloseModal]="isModalOpen() ? 'open' : 'close'">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h1 class="modal-title">Add New Task or Note</h1>
+      <button type="button" (click)="closeModal.emit()" class="icon-button">
+        <i [ngClass]="cancelIcon" class="icon"></i>
+      </button>
     </div>
-    @if (isActiveCategory('task')) {
-    <app-task-form
-      [chosenSideBarCategory]="activeSideBarCategory()"
-      (newTaskAdded)="handleDataAdded()"
-    />
-    } @else if(isActiveCategory('project')) {
-    <app-project-form (projectAdded)="handleDataAdded()" />
-    } @else if(isActiveCategory('note')) {
-    <app-note-form />
-    }
+    <div class="options-container">
+      <div class="modal-sidebar">
+        <p
+          class="option-category"
+          [ngClass]="{ 'option-category-active': isActiveCategory('task') }"
+          (click)="setActiveCategory('task')"
+        >
+          Task
+        </p>
+        <p
+          class="option-category"
+          [ngClass]="{ 'option-category-active': isActiveCategory('project') }"
+          (click)="setActiveCategory('project')"
+        >
+          Project
+        </p>
+        <p
+          class="option-category"
+          [ngClass]="{ 'option-category-active': isActiveCategory('note') }"
+          (click)="setActiveCategory('note')"
+        >
+          Note
+        </p>
+      </div>
+      @if (isActiveCategory('task')) {
+      <app-task-form
+        [chosenSideBarCategory]="activeSideBarCategory()"
+        (newTaskAdded)="handleDataAdded()"
+      />
+      } @else if(isActiveCategory('project')) {
+      <app-project-form (projectAdded)="handleDataAdded()" />
+      } @else if(isActiveCategory('note')) {
+      <app-note-form />
+      }
+    </div>
   </div>
 </div>

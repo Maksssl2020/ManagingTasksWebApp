@@ -1,17 +1,18 @@
 <div class="home-container">
   @if (!isUserLogged) {
-  <div class="modal-overlay"></div>
-  <div class="modal-container">
-    <h1>Log in to see the hide content</h1>
-    <p></p>
+  <div class="modal-overlay">
+    <div class="modal-container">
+      <h1>Log in to see the hide content</h1>
+      <p></p>
 
-    <div class="buttons-container">
-      <button routerLink="/sign-in" class="authentication-button">
-        Sign in
-      </button>
-      <button routerLink="/sign-up" class="authentication-button">
-        Sign up
-      </button>
+      <div class="buttons-container">
+        <button routerLink="/sign-in" class="authentication-button">
+          Sign in
+        </button>
+        <button routerLink="/sign-up" class="authentication-button">
+          Sign up
+        </button>
+      </div>
     </div>
   </div>
   }

@@ -19,12 +19,12 @@
 
   @if (isEditTaskModalOpen && chosenTaskId) {
   <app-edit-task-modal
-    [taskId]="chosenTaskId"
+    [taskData]="chosenTaskData"
     (closeModal)="closeEditTaskModal()"
   />
   } @if (isDetailsModalOpen && chosenTaskId) {
   <app-task-details-modal
-    [taskId]="chosenTaskId"
+    [taskData]="chosenTaskData"
     (closeModal)="closeDetailsModal()"
   />
   }

@@ -1,10 +1,12 @@
 import {
+  AfterViewInit,
   Component,
   inject,
   input,
   OnInit,
   output,
   Signal,
+  ViewChild,
 } from '@angular/core';
 import { ActionModalComponent } from '../action-modal/action-modal.component';
 import { NgClass } from '@angular/common';
@@ -22,7 +24,6 @@ export class SideBarComponent implements OnInit {
   userProjects = this.projectService.userProjects;
   chosenCategory!: string;
   isActionModalOpen = false;
-  // projectDeleted = input<void>();
   currentCategory = output<string>();
 
   ngOnInit(): void {
@@ -37,12 +38,8 @@ export class SideBarComponent implements OnInit {
     });
   }
 
-  openModal() {
-    this.isActionModalOpen = true;
-  }
-
-  closeModal() {
-    this.isActionModalOpen = false;
+  toggleModal() {
+    this.isActionModalOpen = !this.isActionModalOpen;
   }
 
   setChosenCategory(category: string) {
