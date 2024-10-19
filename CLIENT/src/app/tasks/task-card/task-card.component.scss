@@ -13,6 +13,11 @@
   &:hover {
     border: 2px solid $custom-white-color-100;
   }
+
+  @media (max-width: $large) {
+    padding: 0 10px;
+    font-size: 12px;
+  }
 }
 
 .priority-level {
@@ -33,6 +38,12 @@
   &.priority-level-high {
     @extend .high-priority-level-bg-gradient;
   }
+
+  @media (max-width: $large) {
+    width: 24px;
+    height: 24px;
+    margin-right: 1rem;
+  }
 }
 
 .task-details-options-container {
@@ -40,4 +51,31 @@
   margin-left: auto;
   align-items: center;
   gap: 1rem;
+
+  @media (max-width: $large) {
+    gap: 10px;
+  }
+}
+
+.details-button {
+  @media (max-width: $large) {
+    height: 35px;
+    border-radius: 6px;
+  }
+}
+
+.icon-button {
+  @media (max-width: $large) {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+  }
+}
+
+.icon {
+  @media (max-width: $large) {
+    font-size: 14px;
+    height: 14px;
+    width: 14px;
+  }
 }

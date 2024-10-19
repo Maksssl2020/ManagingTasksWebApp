@@ -1,22 +1,21 @@
+import { NgClass, NgIf } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
   Component,
   inject,
-  OnInit,
+  OnInit
 } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { filter, interval } from 'rxjs';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { AuthenticationService } from './services/authentication.service';
-import { filter, interval } from 'rxjs';
-import { NgClass, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, HeaderComponent, HomeComponent, NgClass, NgIf],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
   private authenticationService = inject(AuthenticationService);

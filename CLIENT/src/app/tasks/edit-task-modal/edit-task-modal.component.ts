@@ -1,11 +1,11 @@
+import { NgClass } from '@angular/common';
 import { Component, inject, input, OnInit, output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { openCloseModalAnimation } from '../../animations/animations';
 import { Task } from '../../modules/Task';
+import { IconService } from '../../services/icon.service';
 import { TaskService } from '../../services/task.service';
 import { MainTaskFormComponent } from '../main-task-form/main-task-form.component';
-import { IconsService } from '../../services/icons.service';
-import { NgClass } from '@angular/common';
-import { openCloseModalAnimation } from '../../animations/animations';
 
 @Component({
   selector: 'app-edit-task-modal',
@@ -17,7 +17,7 @@ import { openCloseModalAnimation } from '../../animations/animations';
 })
 export class EditTaskModalComponent implements OnInit {
   private taskService = inject(TaskService);
-  private iconService = inject(IconsService);
+  private iconService = inject(IconService);
   private toastr = inject(ToastrService);
   taskData = input.required<Task>();
   closeModal = output<void>();

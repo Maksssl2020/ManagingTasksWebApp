@@ -1,9 +1,9 @@
-import { Component, inject, input, output } from '@angular/core';
-import { IconsService } from '../../services/icons.service';
 import { DatePipe, NgClass } from '@angular/common';
-import { Task } from '../../modules/Task';
-import { TaskService } from '../../services/task.service';
+import { Component, inject, input, output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Task } from '../../modules/Task';
+import { IconService } from '../../services/icon.service';
+import { TaskService } from '../../services/task.service';
 
 @Component({
   selector: 'app-task-card',
@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class TaskCardComponent {
   private tasksService = inject(TaskService);
-  private iconService = inject(IconsService);
+  private iconService = inject(IconService);
   private toastr = inject(ToastrService);
   editIcon = this.iconService.getIcon('edit');
   deleteIcon = this.iconService.getIcon('delete');

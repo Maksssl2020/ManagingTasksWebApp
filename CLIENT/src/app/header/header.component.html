@@ -3,7 +3,12 @@
     <h1 class="text-gradient">Taskly</h1>
     <i [ngClass]="journalIcon" class="journal-icon text-gradient"></i>
   </div>
-  <button (click)="logout()" class="icon-button">
-    <i [ngClass]="logoutIcon" class="icon"></i>
-  </button>
+  <div class="icons-container">
+    <button (click)="toggleSidebar()" class="icon-button hidden">
+      <i [ngClass]="hamburgerIcon" class="icon"></i>
+    </button>
+    <button (click)="logout()" class="icon-button">
+      <i [ngClass]="logoutIcon" class="icon"></i>
+    </button>
+  </div>
 </header>

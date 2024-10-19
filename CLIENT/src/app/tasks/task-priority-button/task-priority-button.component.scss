@@ -38,6 +38,14 @@
     background-color: rgba(255, 69, 0, 0.7);
     @extend .high-priority-level-bg-gradient;
   }
+
+  @media (max-width: $extra-large-2) {
+    padding: 0 15px;
+  }
+
+  @media (max-width: $large) {
+    padding: 0 10px;
+  }
 }
 
 .priority-button-text {
@@ -51,5 +59,9 @@
   &.priority-button-text-selected {
     -webkit-text-fill-color: $custom-white-color-100;
     background: transparent !important;
+  }
+
+  @media (max-width: $extra-large-2) {
+    font-size: 12px;
   }
 }

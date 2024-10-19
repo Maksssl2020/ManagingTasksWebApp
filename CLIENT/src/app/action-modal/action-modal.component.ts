@@ -3,7 +3,7 @@ import { Component, inject, input, output } from '@angular/core';
 import { openCloseModalAnimation } from '../animations/animations';
 import { NoteFormComponent } from '../notes/note-form/note-form.component';
 import { ProjectFormComponent } from '../projects/project-form/project-form.component';
-import { IconsService } from '../services/icons.service';
+import { IconService } from '../services/icon.service';
 import { TaskFormComponent } from '../tasks/task-form/task-form.component';
 
 @Component({
@@ -20,7 +20,7 @@ import { TaskFormComponent } from '../tasks/task-form/task-form.component';
   animations: [openCloseModalAnimation],
 })
 export class ActionModalComponent {
-  private iconsService = inject(IconsService);
+  private iconsService = inject(IconService);
   cancelIcon = this.iconsService.getIcon('cancel');
   isModalOpen = input.required<boolean>();
   activeCategory: string = 'task';

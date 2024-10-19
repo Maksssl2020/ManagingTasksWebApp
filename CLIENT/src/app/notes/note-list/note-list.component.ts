@@ -1,19 +1,13 @@
-import { NgFor } from '@angular/common';
-import {
-  Component,
-  ElementRef,
-  inject,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { NgFor, NgIf } from '@angular/common';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
+import { Note } from '../../modules/Note';
 import { NoteService } from '../../services/note.service';
 import { NoteCardComponent } from '../note-card/note-card.component';
-import { Note } from '../../modules/Note';
 
 @Component({
   selector: 'app-note-list',
   standalone: true,
-  imports: [NgFor, NoteCardComponent],
+  imports: [NgFor, NoteCardComponent, NgIf],
   templateUrl: './note-list.component.html',
   styleUrl: './note-list.component.scss',
 })
@@ -22,14 +16,19 @@ export class NoteListComponent implements OnInit {
   firstColumnNotes: Note[] = [];
   secondColumnNotes: Note[] = [];
   thirdColumnNotes: Note[] = [];
+  amountOfColumns: number = 3;
+  isAmountOfColumnsChange: boolean = false;
+  allNotes: Note[] = [];
 
   ngOnInit(): void {
+    this.onWindowResize();
     this.loadUserNotes();
   }
 
   loadUserNotes() {
     this.noteService.userNotes$.subscribe((notes) => {
       this.divideNotesIntoColumns(notes);
+      this.allNotes = notes;
     });
     this.noteService.getUserNotes().subscribe({
       next: (notes) => {
@@ -44,13 +43,37 @@ export class NoteListComponent implements OnInit {
     this.thirdColumnNotes = [];
 
     for (let i = 0; i < notes.length; i++) {
-      if (i % 3 === 0) {
+      if (i % 3 === 0 && this.amountOfColumns === 3) {
         this.firstColumnNotes.push(notes[i]);
-      } else if (i % 3 === 1) {
+      } else if (
+        (i % 3 === 1 && this.amountOfColumns === 3) ||
+        (i % 2 === 0 && this.amountOfColumns === 2)
+      ) {
         this.secondColumnNotes.push(notes[i]);
       } else {
         this.thirdColumnNotes.push(notes[i]);
       }
+    }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() {
+    const windowWidth = innerWidth;
+
+    if (windowWidth <= 1280 && this.amountOfColumns !== 2) {
+      this.isAmountOfColumnsChange = true;
+      this.amountOfColumns = 2;
+    } else if (windowWidth > 1280 && this.amountOfColumns !== 3) {
+      this.isAmountOfColumnsChange = true;
+      this.amountOfColumns = 3;
+    }
+
+    if (this.isAmountOfColumnsChange) {
+      this.noteService.userNotes$.subscribe((notes) => {
+        this.divideNotesIntoColumns(notes);
+      });
+
+      this.isAmountOfColumnsChange = false;
     }
   }
 }

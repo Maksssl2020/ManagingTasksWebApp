@@ -1,17 +1,9 @@
 import { NgClass } from '@angular/common';
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  inject,
-  input,
-  OnInit,
-  output,
-} from '@angular/core';
+import { Component, inject, input, OnInit, output } from '@angular/core';
 import { openCloseModalAnimation } from '../../animations/animations';
 import { Task } from '../../modules/Task';
 import { CapitalizeFirstLetterPipe } from '../../pipes/capitalize-first-letter.pipe';
-import { IconsService } from '../../services/icons.service';
+import { IconService } from '../../services/icon.service';
 
 @Component({
   selector: 'app-task-details-modal',
@@ -22,7 +14,7 @@ import { IconsService } from '../../services/icons.service';
   animations: [openCloseModalAnimation],
 })
 export class TaskDetailsModalComponent implements OnInit {
-  private iconService = inject(IconsService);
+  private iconService = inject(IconService);
   taskData = input.required<Task>();
   isModalOpen: boolean = false;
   chosenTaskData?: Task;

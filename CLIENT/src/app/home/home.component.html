@@ -17,10 +17,13 @@
   </div>
   }
   <div class="home-data-container">
-    <app-side-bar
-      #sidebar
-      (currentCategory)="setCurrentChosenCategoryInSidebar($event)"
-    />
+    <div class="side">
+      <app-side-bar
+        #sidebar
+        (currentCategory)="setCurrentChosenCategoryInSidebar($event)"
+        (toggleActionModal)="toggleModal()"
+      />
+    </div>
     @if (currentChosenCategoryInSidebar === 'notes') {
     <app-note-list />
     } @else {
@@ -30,4 +33,11 @@
     />
     }
   </div>
+
+  <app-action-modal
+    [activeSideBarCategory]="currentChosenCategoryInSidebar"
+    (newTaskAdded)="handleDataAdded()"
+    (closeModal)="toggleModal()"
+    [isModalOpen]="isActionModalOpen"
+  />
 </div>

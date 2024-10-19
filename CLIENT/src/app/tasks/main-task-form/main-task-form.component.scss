@@ -100,6 +100,14 @@
   margin-left: auto;
 
   @extend .submit-button;
+
+  @media (max-width: $extra-large-2) {
+    width: 100px;
+  }
+
+  @media (max-width: $large) {
+    width: 85px;
+  }
 }
 
 .error-message {

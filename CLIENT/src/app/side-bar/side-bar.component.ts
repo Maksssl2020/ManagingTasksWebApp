@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   Component,
+  HostListener,
   inject,
   input,
   OnInit,
@@ -11,6 +12,8 @@ import {
 import { ActionModalComponent } from '../action-modal/action-modal.component';
 import { NgClass } from '@angular/common';
 import { ProjectService } from '../services/project.service';
+import { openCloseHiddenSidebar } from '../animations/animations';
+import { SidebarService } from '../services/sidebar.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -18,18 +21,36 @@ import { ProjectService } from '../services/project.service';
   imports: [ActionModalComponent, NgClass],
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.scss',
+  animations: [openCloseHiddenSidebar],
 })
 export class SideBarComponent implements OnInit {
   private projectService = inject(ProjectService);
+  private sidebarService = inject(SidebarService);
   userProjects = this.projectService.userProjects;
   chosenCategory!: string;
-  isActionModalOpen = false;
+  // isActionModalOpen = false;
   currentCategory = output<string>();
+  toggleActionModal = output<void>();
+  isSidebarOpen: boolean = false;
+  windowWidth: number = innerWidth;
 
   ngOnInit(): void {
     this.loadUserProjects();
     this.chosenCategory = 'all';
     this.currentCategory.emit(this.chosenCategory);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  handleWindowResize() {
+    this.windowWidth = innerWidth;
+    console.log(innerWidth);
+    if (innerWidth < 768) {
+      this.sidebarService.sidebarState$.subscribe({
+        next: (isOpen) => {
+          this.isSidebarOpen = isOpen;
+        },
+      });
+    }
   }
 
   loadUserProjects() {
@@ -39,7 +60,7 @@ export class SideBarComponent implements OnInit {
   }
 
   toggleModal() {
-    this.isActionModalOpen = !this.isActionModalOpen;
+    this.toggleActionModal.emit();
   }
 
   setChosenCategory(category: string) {
@@ -51,9 +72,9 @@ export class SideBarComponent implements OnInit {
     return category === this.chosenCategory;
   }
 
-  handleDataAdded() {
-    this.isActionModalOpen = false;
-  }
+  // handleDataAdded() {
+  //   this.isActionModalOpen = false;
+  // }
 
   handleProjectDeleted() {
     this.setChosenCategory('home');

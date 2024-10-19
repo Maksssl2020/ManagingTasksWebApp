@@ -1,6 +1,4 @@
-.form-container {
-  min-height: 750px;
-}
+@import "../../styles.scss";
 
 .submit-button {
   margin-top: auto;
@@ -23,11 +21,10 @@
   }
 }
 
-h1 {
-  font-size: 48px;
-  font-weight: 500;
-}
-
 label {
   margin-left: 10px;
+}
+
+.submit-button {
+  margin-top: 2rem;
 }

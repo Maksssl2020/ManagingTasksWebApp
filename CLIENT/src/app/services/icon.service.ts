@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class IconsService {
+export class IconService {
   icons: { [key: string]: string } = {
     journal: 'bi bi-journal',
     user: 'bi bi-person',
@@ -11,6 +11,7 @@ export class IconsService {
     edit: 'bi bi-pencil-square',
     delete: 'bi bi-x-square',
     cancel: 'bi bi-x-lg',
+    hamburger: 'bi bi-list',
   };
 
   getIcon(iconName: string): string | undefined {

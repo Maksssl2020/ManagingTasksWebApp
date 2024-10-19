@@ -3,13 +3,36 @@
 
 .side-bar-container {
   height: calc(100vh - 115px);
+  min-width: 330px;
   border-right: 2px solid $custom-gray-color-200;
   display: flex;
   box-sizing: border-box;
   flex-direction: column;
   padding: 40px 20px;
   font-family: "Lato";
-  overflow: hidden;
+  overflow-y: auto;
+
+  @media (max-width: $extra-large-2) {
+    overflow-y: auto;
+    padding: 25px 15px;
+    min-width: 300px;
+  }
+
+  @media (max-width: $large) {
+    padding: 20px 10px;
+    min-width: 250px;
+  }
+
+  @media (max-width: $medium) {
+    width: 300px;
+    background-color: $custom-black-color-100;
+    position: absolute;
+    border-left: 2px solid $custom-gray-color-200;
+    right: 0;
+    z-index: 1;
+  }
+
+  @extend .scrollbar;
 }
 
 h2 {
@@ -17,8 +40,15 @@ h2 {
   font-weight: 500;
 
   &.active {
-    margin-left: 5px;
     @extend .text-gradient;
+  }
+
+  @media (max-width: $large) {
+    font-size: 28px;
+  }
+
+  @media (max-width: $medium) {
+    margin-left: auto;
   }
 }
 
@@ -34,9 +64,20 @@ h2 {
   list-style: none;
   gap: 16px;
   font-size: 20px;
+
+  @media (max-width: $large) {
+    font-size: 16px;
+  }
+
+  @media (max-width: $medium) {
+    margin-left: auto;
+    margin-right: 40px;
+    padding-left: 0;
+  }
 }
 .tasks-subcategories-list {
   height: 100px;
+
   @extend .subcategories-list;
 }
 
@@ -53,16 +94,14 @@ h2 {
   cursor: pointer;
 
   &.active {
-    font-size: 24px;
     font-weight: 500;
-    margin-left: 5px;
     @extend .text-gradient;
   }
 }
 
 .add-button {
   width: 100%;
-  height: 75px;
+  min-height: 75px;
   background-color: transparent;
   border: 2px solid $custom-white-color-100;
   border-radius: 10px;
@@ -78,5 +117,14 @@ h2 {
   &:hover {
     background-color: #e91e63;
     @extend .background-gradient;
+  }
+
+  @media (max-width: $extra-large-2) {
+    margin-top: 1rem;
+  }
+
+  @media (max-width: $large) {
+    min-height: 65px;
+    font-size: 20px;
   }
 }

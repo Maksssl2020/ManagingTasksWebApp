@@ -1,4 +1,5 @@
-import { Component, output } from '@angular/core';
+import { Component, OnInit, output } from '@angular/core';
+import { openCloseModalAnimation } from '../animations/animations';
 
 @Component({
   selector: 'app-delete-warning-modal',
@@ -6,16 +7,32 @@ import { Component, output } from '@angular/core';
   imports: [],
   templateUrl: './delete-warning-modal.component.html',
   styleUrl: './delete-warning-modal.component.scss',
+  animations: [openCloseModalAnimation],
 })
-export class DeleteWarningModalComponent {
+export class DeleteWarningModalComponent implements OnInit {
   delete = output<void>();
   cancel = output<void>();
+  isModalOpen: boolean = false;
+
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.isModalOpen = true;
+    });
+  }
 
   handleCancel() {
-    this.cancel.emit();
+    this.isModalOpen = false;
+
+    setTimeout(() => {
+      this.cancel.emit();
+    }, 300);
   }
 
   handleDelete() {
-    this.delete.emit();
+    this.isModalOpen = false;
+
+    setTimeout(() => {
+      this.delete.emit();
+    }, 300);
   }
 }

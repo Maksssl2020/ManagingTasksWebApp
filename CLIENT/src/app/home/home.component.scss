@@ -10,11 +10,23 @@
   overflow: hidden;
 }
 
+.side {
+  display: flex;
+  position: relative;
+  width: 100%;
+}
+
 .home-data-container {
   width: 100%;
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: 1fr 4fr;
-  box-sizing: border-box;
+
+  @media (max-width: $medium) {
+    grid-template-columns: 1fr;
+    // position: absolute;
+    left: 0;
+  }
 }
 
 .modal-container {

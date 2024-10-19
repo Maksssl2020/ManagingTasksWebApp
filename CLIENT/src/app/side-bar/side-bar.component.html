@@ -1,4 +1,9 @@
-<div class="side-bar-container">
+<div
+  class="side-bar-container"
+  [@openCloseSidebar]="
+    windowWidth < 768 ? (isSidebarOpen ? 'open' : 'close') : ''
+  "
+>
   <div class="categories-container">
     <h2>Tasks</h2>
     <ul class="tasks-subcategories-list">
@@ -53,11 +58,4 @@
     </h2>
   </div>
   <button (click)="toggleModal()" class="add-button">ADD new</button>
-
-  <app-action-modal
-    [activeSideBarCategory]="chosenCategory"
-    (newTaskAdded)="handleDataAdded()"
-    (closeModal)="toggleModal()"
-    [isModalOpen]="isActionModalOpen"
-  />
 </div>
