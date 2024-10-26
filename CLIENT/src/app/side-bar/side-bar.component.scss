@@ -4,7 +4,6 @@
 .side-bar-container {
   height: calc(100vh - 115px);
   min-width: 330px;
-  border-right: 2px solid $custom-gray-color-200;
   display: flex;
   box-sizing: border-box;
   flex-direction: column;
@@ -23,8 +22,12 @@
     min-width: 250px;
   }
 
+  @media (min-width: $medium) {
+    border-right: 2px solid $custom-gray-color-200;
+  }
+
   @media (max-width: $medium) {
-    width: 300px;
+    min-width: 300px;
     background-color: $custom-black-color-100;
     position: absolute;
     border-left: 2px solid $custom-gray-color-200;

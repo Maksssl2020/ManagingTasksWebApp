@@ -2,16 +2,27 @@
 @import "../../../styles.scss";
 
 .modal-container {
-  width: 750px;
   height: auto;
   padding: 1rem;
   display: flex;
   flex-direction: column;
+
+  @media (min-width: $medium) {
+    width: 750px;
+  }
 }
 
 .details-title {
-  font-size: 28px;
   text-transform: uppercase;
+
+  @media (min-width: $medium) {
+    font-size: 28px;
+  }
+
+  @media (max-width: $medium) {
+    font-size: 20px;
+  }
+
   @extend .text-gradient;
 }
 
@@ -19,7 +30,14 @@
   display: flex;
   gap: 1rem;
   align-items: center;
-  font-size: 18px;
+
+  @media (min-width: $medium) {
+    font-size: 18px;
+  }
+
+  @media (max-width: $medium) {
+    font-size: 14px;
+  }
 }
 
 .details-item label {

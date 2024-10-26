@@ -5,7 +5,6 @@
   height: 75px;
   border: 2px solid $custom-gray-color-100;
   border-radius: 1rem;
-  padding: 0 20px;
   display: flex;
   align-items: center;
   transition: border 0.3s ease-in-out;
@@ -14,15 +13,25 @@
     border: 2px solid $custom-white-color-100;
   }
 
+  @media (min-width: $large) {
+    padding: 0 20px;
+  }
+
   @media (max-width: $large) {
     padding: 0 10px;
     font-size: 12px;
   }
+
+  @media (max-width: $medium) {
+    padding: 0 6px;
+  }
+
+  @media (max-width: $small) {
+    padding: 0 4px;
+  }
 }
 
 .priority-level {
-  width: 30px;
-  height: 30px;
   background-color: aqua;
   border-radius: 100%;
   margin-right: 2rem;
@@ -39,10 +48,27 @@
     @extend .high-priority-level-bg-gradient;
   }
 
+  @media (min-width: $large) {
+    width: 30px;
+    height: 30px;
+  }
+
   @media (max-width: $large) {
     width: 24px;
     height: 24px;
     margin-right: 1rem;
+  }
+
+  @media (max-width: $medium) {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+  }
+
+  @media (max-width: $small) {
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
   }
 }
 

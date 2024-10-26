@@ -2,8 +2,20 @@
 
 .submit-button {
   margin-top: auto;
-  height: 75px;
-  font-size: 28px;
+
+  @media (min-width: $medium) {
+    height: 75px;
+    font-size: 28px;
+  }
+
+  @media (max-width: $medium) {
+    height: 60px;
+    font-size: 20px;
+  }
+
+  @media (max-width: $small) {
+    font-size: 18px;
+  }
 }
 
 .title-container {

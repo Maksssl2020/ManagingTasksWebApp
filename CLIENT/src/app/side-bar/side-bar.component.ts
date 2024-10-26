@@ -28,7 +28,6 @@ export class SideBarComponent implements OnInit {
   private sidebarService = inject(SidebarService);
   userProjects = this.projectService.userProjects;
   chosenCategory!: string;
-  // isActionModalOpen = false;
   currentCategory = output<string>();
   toggleActionModal = output<void>();
   isSidebarOpen: boolean = false;
@@ -38,6 +37,7 @@ export class SideBarComponent implements OnInit {
     this.loadUserProjects();
     this.chosenCategory = 'all';
     this.currentCategory.emit(this.chosenCategory);
+    this.handleWindowResize();
   }
 
   @HostListener('window:resize', ['$event'])

@@ -66,6 +66,9 @@ export class NoteListComponent implements OnInit {
     } else if (windowWidth > 1280 && this.amountOfColumns !== 3) {
       this.isAmountOfColumnsChange = true;
       this.amountOfColumns = 3;
+    } else if (windowWidth < 576 && this.amountOfColumns !== 1) {
+      this.isAmountOfColumnsChange = true;
+      this.amountOfColumns = 1;
     }
 
     if (this.isAmountOfColumnsChange) {

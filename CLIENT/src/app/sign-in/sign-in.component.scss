@@ -1,12 +1,5 @@
 @import "../../styles.scss";
 
-.page {
-  height: 97vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .title-container {
   display: flex;
   flex-direction: column;
@@ -35,7 +28,19 @@ label {
 }
 
 .submit-button {
-  margin-top: auto;
-  height: 75px;
-  font-size: 28px;
+  margin-top: 2rem;
+
+  @media (min-width: $medium) {
+    height: 75px;
+    font-size: 28px;
+  }
+
+  @media (max-width: $medium) {
+    height: 60px;
+    font-size: 20px;
+  }
+
+  @media (max-width: $small) {
+    font-size: 18px;
+  }
 }

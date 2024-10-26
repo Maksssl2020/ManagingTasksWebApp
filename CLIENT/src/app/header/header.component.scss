@@ -13,15 +13,36 @@ header {
 }
 
 h1 {
-  font-size: 48px;
+  @media (min-width: $medium) {
+    font-size: 48px;
+  }
+
+  @media (max-width: $medium) {
+    font-size: 40px;
+  }
+
+  @media (max-width: $small) {
+    font-size: 28px;
+  }
 }
 
 .logo-container {
   display: flex;
   height: 100%;
   width: auto;
-  gap: 16px;
   align-items: center;
+
+  @media (min-width: $medium) {
+    gap: 16px;
+  }
+
+  @media (max-width: $medium) {
+    gap: 12px;
+  }
+
+  @media (max-width: $small) {
+    gap: 8px;
+  }
 }
 
 .icons-container {
@@ -31,6 +52,18 @@ h1 {
   height: 100%;
   align-items: center;
   gap: 16px;
+
+  @media (min-width: $medium) {
+    gap: 16px;
+  }
+
+  @media (max-width: $medium) {
+    gap: 12px;
+  }
+
+  @media (max-width: $small) {
+    gap: 8px;
+  }
 }
 
 .text-gradient {
@@ -41,22 +74,62 @@ h1 {
 }
 
 .journal-icon {
-  font-size: 50px;
+  @media (min-width: $medium) {
+    font-size: 50px;
+  }
+
+  @media (max-width: $medium) {
+    font-size: 42px;
+  }
+
+  @media (max-width: $small) {
+    font-size: 30px;
+  }
 }
 
 .icon-button {
   width: 50px;
   height: 50px;
   margin-left: auto;
+
+  @media (min-width: $medium) {
+    width: 50px;
+    height: 50px;
+  }
+
+  @media (max-width: $medium) {
+    width: 40px;
+    height: 40px;
+  }
+
+  @media (max-width: $small) {
+    width: 30px;
+    height: 30px;
+  }
 }
 
 .icon {
-  width: 40px;
-  height: 40px;
-  font-size: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (min-width: $medium) {
+    width: 40px;
+    height: 40px;
+    font-size: 30px;
+  }
+
+  @media (max-width: $medium) {
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+  }
+
+  @media (max-width: $small) {
+    width: 20px;
+    height: 20px;
+    font-size: 15px;
+  }
 }
 
 .hidden {

@@ -1,15 +1,15 @@
 <div class="container">
-  <div *ngIf="amountOfColumns === 3">
+  <div class="column" *ngIf="amountOfColumns === 3">
     @for (note of firstColumnNotes; track $index) {
     <app-note-card [userNoteData]="note" />
     }
   </div>
-  <div *ngIf="amountOfColumns >= 2">
+  <div class="column" *ngIf="amountOfColumns >= 2">
     @for (note of secondColumnNotes; track $index) {
     <app-note-card [userNoteData]="note" />
     }
   </div>
-  <div>
+  <div class="column">
     @for (note of thirdColumnNotes; track $index) {
     <app-note-card [userNoteData]="note" />
     }

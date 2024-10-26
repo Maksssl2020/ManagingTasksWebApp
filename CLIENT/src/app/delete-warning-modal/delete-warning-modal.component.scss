@@ -2,35 +2,73 @@
 @import "../../styles.scss";
 
 .modal-container {
-  width: 750px;
   height: auto;
   padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (min-width: $medium) {
+    width: 750px;
+  }
 }
 
 .delete-title {
   display: flex;
   letter-spacing: 2px;
-  font-size: 36px;
+
   text-transform: uppercase;
   @extend .text-gradient;
+
+  @media (min-width: $medium) {
+    font-size: 36px;
+  }
+
+  @media (max-width: $medium) {
+    font-size: 28px;
+  }
+
+  @media (max-width: $small) {
+    font-size: 20px;
+  }
 }
 
 .delete-subtitle {
   font-size: 24px;
+
+  @media (min-width: $medium) {
+    font-size: 24px;
+  }
+
+  @media (max-width: $medium) {
+    font-size: 20px;
+  }
+
+  @media (max-width: $small) {
+    font-size: 16px;
+  }
 }
 
 .buttons-container {
+  width: 100%;
   margin-top: 1rem;
   display: flex;
   gap: 1rem;
+  justify-content: center;
 }
 
 .button {
   font-size: 16px;
-  width: 250px;
+  width: 45%;
   height: 50px;
+
+  @media (min-width: $medium) {
+    font-size: 16px;
+  }
+
+  @media (max-width: $medium) {
+    font-size: 12px;
+  }
+
   @extend .submit-button;
 }

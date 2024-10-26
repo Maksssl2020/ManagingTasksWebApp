@@ -7,9 +7,20 @@ body {
 }
 
 .authentication-title {
-  font-size: 48px;
   font-weight: 500;
   text-transform: uppercase;
+
+  @media (min-width: $medium) {
+    font-size: 48px;
+  }
+
+  @media (max-width: $medium) {
+    font-size: 38px;
+  }
+
+  @media (max-width: $small) {
+    font-size: 28px;
+  }
 
   @extend .text-gradient;
 }
@@ -20,10 +31,16 @@ body {
   background-color: $custom-white-color-100;
 }
 
+.page {
+  height: 97vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .form-container {
   width: 650px;
   height: fit-content;
-  min-height: 550px;
   border: 2px solid $custom-gray-color-100;
   border-radius: 20px;
   display: flex;
@@ -34,6 +51,10 @@ body {
   padding-bottom: 40px;
   gap: 20px;
   font-family: "Lato";
+
+  @media (max-width: $medium) {
+    width: 95%;
+  }
 }
 
 .credentials-container {
@@ -50,6 +71,18 @@ body {
   gap: 4px;
   font-size: 26px;
   font-family: "Lato";
+
+  @media (min-width: $medium) {
+    font-size: 26px;
+  }
+
+  @media (max-width: $medium) {
+    font-size: 20px;
+  }
+
+  @media (max-width: $small) {
+    font-size: 18px;
+  }
 }
 
 .credentials-input {
@@ -58,7 +91,6 @@ body {
   border: 2px solid $custom-gray-color-100;
   border-radius: 10px;
   background-color: transparent;
-  font-size: 16px;
   box-sizing: border-box;
   padding: 0px 12px;
   color: $custom-white-color-100;
@@ -128,6 +160,11 @@ body {
   color: $custom-white-color-100;
   border-radius: 1rem;
   box-sizing: border-box;
+  font-family: "Lato";
+
+  @media (max-width: $medium) {
+    width: 95%;
+  }
 }
 
 .details-button {
