@@ -1,4 +1,4 @@
-import { NgClass } from '@angular/common';
+import { NgClass, NgFor } from '@angular/common';
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
@@ -28,7 +28,7 @@ function equalValues(firstControlName: string, secondControlName: string) {
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [FormsModule, NgClass, ReactiveFormsModule],
+  imports: [FormsModule, NgClass, ReactiveFormsModule, NgFor],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss',
 })
@@ -36,6 +36,7 @@ export class SignUpComponent implements OnInit {
   private authenticationService = inject(AuthenticationService);
   private destroyRef = inject(DestroyRef);
   private router = inject(Router);
+  errorsFromApi: any[] = [];
 
   signUpForm = new FormGroup({
     username: new FormControl('', {
@@ -114,6 +115,8 @@ export class SignUpComponent implements OnInit {
       },
       error: (error) => {
         console.log(error);
+        this.errorsFromApi = error.error;
+        console.log(this.errorsFromApi[0].description);
       },
     });
   }

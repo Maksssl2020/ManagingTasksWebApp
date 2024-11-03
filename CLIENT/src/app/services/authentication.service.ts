@@ -1,9 +1,8 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { inject, Injectable, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { User } from '../modules/User';
 import { environment } from '../../environments/environment';
-import e from 'express';
+import { User } from '../modules/User';
 
 @Injectable({
   providedIn: 'root',

@@ -8,6 +8,7 @@ using API.Repositories;
 using API.Repositories.UsersRepository;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,7 @@ namespace API.Controllers;
 
 [ApiController]
 [Route("/api/to-do-tasks/")]
+// [Authorize(Policy = "RequireRegisteredRole")]
 public class ToDoTaskController(IToDoTaskRepository toDoTaskRepository, IUserRepository userRepository) : ControllerBase
 {
 

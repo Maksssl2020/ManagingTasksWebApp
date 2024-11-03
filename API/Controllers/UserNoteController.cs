@@ -4,12 +4,14 @@ using API.DTOs.Note;
 using API.Models.Note;
 using API.Repositories.UserNoteRepository;
 using API.Repositories.UsersRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
 [ApiController]
 [Route("/api/user-notes/")]
+// [Authorize(Policy = "RequireRegisteredRole")]
 public class UserNoteController(IUserNoteRepository userNoteRepository, IUserRepository userRepository) : ControllerBase
 {
     [HttpGet("get-user-notes/{userId}")]

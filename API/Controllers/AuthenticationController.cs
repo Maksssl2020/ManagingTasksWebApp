@@ -5,6 +5,8 @@ using API.Data;
 using API.DTOs.Authentication;
 using API.Interfaces;
 using API.Models.User;
+using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
@@ -13,77 +15,83 @@ namespace API.Controllers;
 
 [ApiController]
 [Route("/api/[controller]")]
-public class AuthenticationController(ApplicationDbContext applicationDbContext, ITokenService tokenService) : ControllerBase
+public class AuthenticationController(UserManager<User> userManager, ITokenService tokenService) : ControllerBase
 {
     [HttpPost("register")]
     public async Task<ActionResult<UserDto>> Register(RegisterRequest registerRequest)
     {
-        using HMACSHA512 hmac = new();
-
         User user = new()
         {
-            Username = registerRequest.Username,
-            Password = Convert.ToBase64String(hmac.ComputeHash(Encoding.UTF8.GetBytes(registerRequest.Password))),
-            PasswordSalt = Convert.ToBase64String(hmac.Key),
-            Email = registerRequest.Email
+            UserName = registerRequest.Username,
+            Email = registerRequest.Email,
         };
 
-        applicationDbContext.Users.Add(user);
-        await applicationDbContext.SaveChangesAsync();
+        System.Console.WriteLine(registerRequest);
 
+        var result = await userManager.CreateAsync(user, registerRequest.Password);
 
-        var userDto = await Login(new LoginRequest
+        if (!result.Succeeded)
         {
-            Username = registerRequest.Username,
-            Password = registerRequest.Password
-        });
-
-        return userDto;
-    }
-
-    [HttpPost("login")]
-    public async Task<ActionResult<UserDto>> Login(LoginRequest loginRequest)
-    {
-        var user = await applicationDbContext.Users.FirstOrDefaultAsync(user => user.Username.Equals(loginRequest.Username));
-
-        if (user == null)
-        {
-            return Unauthorized("Invalid credentials!");
+            return BadRequest(result.Errors);
         }
 
-        using HMACSHA512 hmac = new(Convert.FromBase64String(user.PasswordSalt));
-        byte[] computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginRequest.Password));
-        byte[] storedHash = Convert.FromBase64String(user.Password);
+        var roleResult = await userManager.AddToRoleAsync(user, "REGISTERED");
 
-        for (int i = 0; i < computedHash.Length; i++)
+        if (!roleResult.Succeeded)
         {
-            if (computedHash[i] != storedHash[i])
-            {
-                return Unauthorized("Invalid credentials!");
-            }
+            return BadRequest(roleResult.Errors);
         }
 
         return new UserDto
         {
             Id = user.Id,
-            Username = user.Username,
+            Username = user.UserName,
             Email = user.Email,
-            Token = tokenService.GenerateToken(user)
+            Token = await tokenService.GenerateToken(user)
+        };
+    }
+
+    [HttpPost("login")]
+    public async Task<ActionResult<UserDto>> Login(LoginRequest loginRequest)
+    {
+        var user = await userManager.Users
+        .FirstOrDefaultAsync(user => user.UserName!.Equals(loginRequest.Username));
+
+        if (user == null || user.UserName == null || user.Email == null)
+        {
+            return Unauthorized("Invalid credentials!");
+        }
+
+        System.Console.WriteLine(loginRequest);
+
+        var result = await userManager.CheckPasswordAsync(user, loginRequest.Password);
+
+        if (!result)
+        {
+            return Unauthorized("Invalid credentials!");
+        }
+
+        return new UserDto
+        {
+            Id = user.Id,
+            Username = user.UserName,
+            Email = user.Email,
+            Token = await tokenService.GenerateToken(user)
         };
     }
 
     [HttpPost("is-username-unique")]
     public async Task<ActionResult<bool>> IsUsernameUnique(UsernameRequest usernameRequest)
     {
-        var users = await applicationDbContext.Users.ToListAsync();
-        bool isUnique = !users.Any(user => user.Username == usernameRequest.Username);
+        var users = await userManager.Users.ToListAsync();
+        bool isUnique = !users.Any(user => user.UserName == usernameRequest.Username);
         return Ok(isUnique);
     }
 
     [HttpPost("is-email-unique")]
     public async Task<ActionResult<bool>> IsEmailUnique(EmailRequest emailRequest)
     {
-        var users = await applicationDbContext.Users.ToListAsync();
+        var users = await userManager.Users.ToListAsync();
         bool isUnique = !users.Any(user => user.Email == emailRequest.Email);
         return Ok(isUnique);
     }

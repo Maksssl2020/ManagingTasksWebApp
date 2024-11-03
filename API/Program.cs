@@ -7,6 +7,12 @@ using API.Repositories.UsersRepository;
 using API.Services;
 using Microsoft.EntityFrameworkCore;
 using API.Repositories.UserNoteRepository;
+using API.Models.User;
+using API.Models.Role;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +26,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserProjectRepository, UserProjectRepository>();
 builder.Services.AddScoped<IUserNoteRepository, UserNoteRepository>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
+builder.Services.AddIdentityService(builder.Configuration);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -35,5 +41,21 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using var scope = app.Services.CreateAsyncScope();
+var services = scope.ServiceProvider;
+
+try
+{
+    var context = services.GetRequiredService<ApplicationDbContext>();
+    var userManager = services.GetRequiredService<UserManager<User>>();
+    var roleManager = services.GetRequiredService<RoleManager<Role>>();
+    await context.Database.MigrateAsync();
+}
+catch (Exception exception)
+{
+    var logger = services.GetRequiredService<ILogger<Program>>();
+    logger.LogError(exception, "An error occurred during migration");
+}
 
 app.Run();

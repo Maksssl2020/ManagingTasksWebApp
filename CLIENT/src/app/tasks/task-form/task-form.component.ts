@@ -40,11 +40,7 @@ export class TaskFormComponent {
     const taskData = {
       ...task,
       project: this.getProjectNameDependsOnChosenCategory(),
-      userId: this.authenticationService.currentUser().subscribe({
-        next: (user) => {
-          return user?.id;
-        },
-      }),
+      userId: this.authenticationService.currentUserId(),
     };
 
     console.log(taskData);

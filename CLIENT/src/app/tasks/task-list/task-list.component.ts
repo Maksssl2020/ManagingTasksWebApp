@@ -15,6 +15,7 @@ import { TaskService } from '../../services/task.service';
 import { EditTaskModalComponent } from '../edit-task-modal/edit-task-modal.component';
 import { TaskCardComponent } from '../task-card/task-card.component';
 import { TaskDetailsModalComponent } from '../task-details-modal/task-details-modal.component';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-task-list',
@@ -31,6 +32,7 @@ import { TaskDetailsModalComponent } from '../task-details-modal/task-details-mo
   styleUrl: './task-list.component.scss',
 })
 export class TaskListComponent implements OnInit, OnChanges {
+  private authenticationService = inject(AuthenticationService);
   private tasksService = inject(TaskService);
   userTasks = this.tasksService.userTasks;
   isDetailsModalOpen = false;
@@ -42,8 +44,10 @@ export class TaskListComponent implements OnInit, OnChanges {
   projectDeleted = output<void>();
 
   ngOnInit() {
-    this.loadUserTasks();
-    this.filterUserTasksToDisplay();
+    if (this.authenticationService.currentUserSubject.value !== null) {
+      this.loadUserTasks();
+      this.filterUserTasksToDisplay();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {

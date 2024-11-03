@@ -4,12 +4,14 @@ using API.DTOs.Project;
 using API.Models.Project;
 using API.Repositories.UserProjectRepository;
 using API.Repositories.UsersRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
 [ApiController]
 [Route("/api/projects/")]
+// [Authorize(Policy = "RequireRegisteredRole")]
 public class UserProjectController(IUserProjectRepository userProjectRepository, IUserRepository userRepository) : ControllerBase
 {
 

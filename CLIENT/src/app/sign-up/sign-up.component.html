@@ -53,6 +53,8 @@
         @if (signUpForm.get('passwords.password')?.hasError('required') ||
         signUpForm.get('passwords.password')?.hasError('minLength')) {
         <p>Please enter a minimum 6 characters long password!</p>
+        } @else if (errorsFromApi !== undefined) {
+        <p *ngFor="let error of errorsFromApi">{{ error.description }}</p>
         }
       </div>
 

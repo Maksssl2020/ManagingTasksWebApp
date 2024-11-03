@@ -32,8 +32,7 @@ export class ProjectService {
     const savedProject = this.http
       .post<Project>(
         this.baseUrl.concat(
-          `projects/add-project/${this.authenticationService.currentUserId()}
-          }`
+          `projects/add-project/${this.authenticationService.currentUserId()}`
         ),
         model
       )

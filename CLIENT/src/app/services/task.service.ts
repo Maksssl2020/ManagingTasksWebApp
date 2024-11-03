@@ -1,18 +1,10 @@
 import { HttpClient, HttpParams, HttpStatusCode } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { Task } from '../modules/Task';
-import {
-  BehaviorSubject,
-  catchError,
-  map,
-  of,
-  tap,
-  throwError,
-  zip,
-} from 'rxjs';
-import { AuthenticationService } from './authentication.service';
+import { of, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Task } from '../modules/Task';
 import { TaskUpdateRequest } from '../modules/TaskUpdateRequest';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +16,8 @@ export class TaskService {
   baseUrl = environment.apiUrl;
 
   addNewTask(model: any) {
+    console.log(model);
+
     const savedTask = this.http
       .post<Task>(this.baseUrl.concat('to-do-tasks/save-task'), model)
       .subscribe({

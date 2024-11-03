@@ -37,11 +37,7 @@ export class ProjectFormComponent {
     const projectData = {
       title: this.projectForm.value.title,
       details: this.projectForm.value.details,
-      userId: this.authenticationService.currentUser().subscribe({
-        next: (user) => {
-          return user?.id;
-        },
-      }),
+      userId: this.authenticationService.currentUserId(),
     };
 
     console.log(projectData);
