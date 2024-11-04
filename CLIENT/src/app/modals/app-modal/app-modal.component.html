@@ -1,0 +1,9 @@
+<div
+  class="modal-overlay"
+  [@openCloseModal]="isModalOpen ? 'open' : 'close'"
+  (click)="onOverlayClick($event)"
+>
+  <div class="modal-container" [ngClass]="modalContainerClass">
+    <ng-content></ng-content>
+  </div>
+</div>

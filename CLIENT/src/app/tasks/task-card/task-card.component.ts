@@ -1,7 +1,7 @@
 import { DatePipe, NgClass } from '@angular/common';
 import { Component, inject, input, output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { Task } from '../../modules/Task';
+import { Task } from '../../models/Task';
 import { IconService } from '../../services/icon.service';
 import { TaskService } from '../../services/task.service';
 

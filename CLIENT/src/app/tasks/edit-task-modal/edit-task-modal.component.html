@@ -1,12 +1,14 @@
-<div class="modal-overlay" [@openCloseModal]="isModalOpen ? 'open' : 'close'">
-  <div class="modal-container">
-    <button (click)="handleCloseModal()" class="icon-button">
-      <i [ngClass]="cancelIcon" class="icon"></i>
-    </button>
-    <app-main-task-form
-      [taskData]="taskData()"
-      [buttonName]="'edit'"
-      (formSubmit)="updateTask($event)"
-    />
-  </div>
-</div>
+<app-app-modal
+  [isModalOpen]="isModalOpen"
+  [modalContainerClass]="'edit-modal'"
+  (close)="handleCloseModal()"
+>
+  <button (click)="handleCloseModal()" class="icon-button">
+    <i [ngClass]="cancelIcon" class="icon"></i>
+  </button>
+  <app-main-task-form
+    [taskData]="taskData()"
+    [buttonName]="'edit'"
+    (formSubmit)="updateTask($event)"
+  />
+</app-app-modal>

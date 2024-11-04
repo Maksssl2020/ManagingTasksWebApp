@@ -1,7 +1,7 @@
 import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { Project } from '../modules/Project';
+import { Project } from '../models/Project';
 import { AuthenticationService } from './authentication.service';
 import { of, tap } from 'rxjs';
 

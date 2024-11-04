@@ -1,14 +1,15 @@
 import { NgClass } from '@angular/common';
 import { Component, inject, input, OnInit, output } from '@angular/core';
 import { openCloseModalAnimation } from '../../animations/animations';
-import { Task } from '../../modules/Task';
+import { Task } from '../../models/Task';
 import { CapitalizeFirstLetterPipe } from '../../pipes/capitalize-first-letter.pipe';
 import { IconService } from '../../services/icon.service';
+import { AppModalComponent } from '../../modals/app-modal/app-modal.component';
 
 @Component({
   selector: 'app-task-details-modal',
   standalone: true,
-  imports: [CapitalizeFirstLetterPipe, NgClass],
+  imports: [CapitalizeFirstLetterPipe, NgClass, AppModalComponent],
   templateUrl: './task-details-modal.component.html',
   styleUrl: './task-details-modal.component.scss',
   animations: [openCloseModalAnimation],

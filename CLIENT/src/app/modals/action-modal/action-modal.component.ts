@@ -10,11 +10,12 @@ import {
 import {
   openCloseHiddenSidebar,
   openCloseModalAnimation,
-} from '../animations/animations';
-import { NoteFormComponent } from '../notes/note-form/note-form.component';
-import { ProjectFormComponent } from '../projects/project-form/project-form.component';
-import { IconService } from '../services/icon.service';
-import { TaskFormComponent } from '../tasks/task-form/task-form.component';
+} from '../../animations/animations';
+import { NoteFormComponent } from '../../notes/note-form/note-form.component';
+import { ProjectFormComponent } from '../../projects/project-form/project-form.component';
+import { IconService } from '../../services/icon.service';
+import { TaskFormComponent } from '../../tasks/task-form/task-form.component';
+import { AppModalComponent } from '../app-modal/app-modal.component';
 
 @Component({
   selector: 'app-action-modal',
@@ -24,6 +25,7 @@ import { TaskFormComponent } from '../tasks/task-form/task-form.component';
     TaskFormComponent,
     ProjectFormComponent,
     NoteFormComponent,
+    AppModalComponent,
   ],
   templateUrl: './action-modal.component.html',
   styleUrl: './action-modal.component.scss',

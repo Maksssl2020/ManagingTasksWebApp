@@ -2,15 +2,16 @@ import { NgClass } from '@angular/common';
 import { Component, inject, input, OnInit, output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { openCloseModalAnimation } from '../../animations/animations';
-import { Task } from '../../modules/Task';
+import { Task } from '../../models/Task';
 import { IconService } from '../../services/icon.service';
 import { TaskService } from '../../services/task.service';
 import { MainTaskFormComponent } from '../main-task-form/main-task-form.component';
+import { AppModalComponent } from '../../modals/app-modal/app-modal.component';
 
 @Component({
   selector: 'app-edit-task-modal',
   standalone: true,
-  imports: [MainTaskFormComponent, NgClass],
+  imports: [MainTaskFormComponent, NgClass, AppModalComponent],
   templateUrl: './edit-task-modal.component.html',
   styleUrl: './edit-task-modal.component.scss',
   animations: [openCloseModalAnimation],

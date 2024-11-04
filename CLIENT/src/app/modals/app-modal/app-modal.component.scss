@@ -1,0 +1,34 @@
+@import "../../../variables.scss";
+@import "../../../styles.scss";
+
+.large-modal {
+  height: 600px;
+
+  @media (min-width: $extra-large-2) {
+    width: 950px;
+  }
+}
+
+.medium-modal {
+  height: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: $medium) {
+    width: 750px;
+  }
+}
+
+.delete-modal {
+  @extend .medium-modal;
+  align-items: center;
+}
+
+.edit-modal {
+  height: 550px;
+
+  @media (min-width: $medium) {
+    width: 750px;
+  }
+}

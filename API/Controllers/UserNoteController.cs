@@ -17,7 +17,7 @@ public class UserNoteController(IUserNoteRepository userNoteRepository, IUserRep
     [HttpGet("get-user-notes/{userId}")]
     public async Task<ActionResult<IEnumerable<UserNoteDto>>> GetUserNotes(long userId)
     {
-        var foundUser = userRepository.GetUserByIdAsync(userId);
+        var foundUser = await userRepository.GetUserByIdAsync(userId);
 
         if (foundUser == null)
         {
@@ -32,7 +32,7 @@ public class UserNoteController(IUserNoteRepository userNoteRepository, IUserRep
     [HttpPost("add-note/{userId}")]
     public async Task<ActionResult<UserNoteDto>> AddUserNote(long userId, UserNoteRequest userNoteRequest)
     {
-        var foundUser = userRepository.GetUserByIdAsync(userId);
+        var foundUser = await userRepository.GetUserByIdAsync(userId);
 
         if (foundUser == null)
         {

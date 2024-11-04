@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
 import { Component, inject, input, output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { DeleteWarningModalComponent } from '../../delete-warning-modal/delete-warning-modal.component';
+import { DeleteWarningModalComponent } from '../../modals/delete-warning-modal/delete-warning-modal.component';
 import { IconService } from '../../services/icon.service';
 import { ProjectService } from '../../services/project.service';
 import { TaskService } from '../../services/task.service';

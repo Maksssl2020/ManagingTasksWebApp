@@ -1,17 +1,5 @@
-@import "../../variables.scss";
-@import "../../styles.scss";
-
-.modal-container {
-  height: auto;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  @media (min-width: $medium) {
-    width: 750px;
-  }
-}
+@import "../../../variables.scss";
+@import "../../../styles.scss";
 
 .delete-title {
   display: flex;

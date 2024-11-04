@@ -6,7 +6,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { SideBarComponent } from '../side-bar/side-bar.component';
 import { TaskListComponent } from '../tasks/task-list/task-list.component';
 import { SidebarService } from '../services/sidebar.service';
-import { ActionModalComponent } from '../action-modal/action-modal.component';
+import { ActionModalComponent } from '../modals/action-modal/action-modal.component';
 
 @Component({
   selector: 'app-home',

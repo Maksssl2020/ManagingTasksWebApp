@@ -1,17 +1,6 @@
 @import "../../../variables.scss";
 @import "../../../styles.scss";
 
-.modal-container {
-  height: auto;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-
-  @media (min-width: $medium) {
-    width: 750px;
-  }
-}
-
 .details-title {
   text-transform: uppercase;
 

@@ -42,13 +42,7 @@ public class AuthenticationController(UserManager<User> userManager, ITokenServi
             return BadRequest(roleResult.Errors);
         }
 
-        return new UserDto
-        {
-            Id = user.Id,
-            Username = user.UserName,
-            Email = user.Email,
-            Token = await tokenService.GenerateToken(user)
-        };
+        return await Login(new LoginRequest { Username = user.UserName, Password = registerRequest.Password });
     }
 
     [HttpPost("login")]

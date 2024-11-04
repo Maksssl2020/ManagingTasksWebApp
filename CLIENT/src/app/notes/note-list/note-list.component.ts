@@ -1,6 +1,6 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component, HostListener, inject, OnInit } from '@angular/core';
-import { Note } from '../../modules/Note';
+import { Note } from '../../models/Note';
 import { NoteService } from '../../services/note.service';
 import { NoteCardComponent } from '../note-card/note-card.component';
 

@@ -9,7 +9,7 @@ import {
   Signal,
   ViewChild,
 } from '@angular/core';
-import { ActionModalComponent } from '../action-modal/action-modal.component';
+import { ActionModalComponent } from '../modals/action-modal/action-modal.component';
 import { NgClass } from '@angular/common';
 import { ProjectService } from '../services/project.service';
 import { openCloseHiddenSidebar } from '../animations/animations';
@@ -39,21 +39,44 @@ export class SideBarComponent implements OnInit {
     if (this.authenticationService.currentUserSubject.value !== null) {
       this.loadUserProjects();
     }
-    this.chosenCategory = 'all';
-    this.currentCategory.emit(this.chosenCategory);
+
+    this.sidebarService.sidebarState$.subscribe({
+      next: (sidebar) => {
+        if (sidebar) {
+          this.chosenCategory = sidebar.activeCategory;
+          this.currentCategory.emit(this.chosenCategory);
+        }
+      },
+    });
+
     this.handleWindowResize();
   }
 
   @HostListener('window:resize', ['$event'])
   handleWindowResize() {
     this.windowWidth = innerWidth;
-    console.log(innerWidth);
     if (innerWidth < 768) {
       this.sidebarService.sidebarState$.subscribe({
         next: (isOpen) => {
-          this.isSidebarOpen = isOpen;
+          console.log(isOpen);
+          if (isOpen) {
+            this.isSidebarOpen = isOpen?.state;
+          }
         },
       });
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  handleClickOutsideSidebar(event: MouseEvent) {
+    if (this.windowWidth < 768 && this.isSidebarOpen === true) {
+      const clickedInsideArea =
+        (event.target as HTMLElement).closest('.side-bar-container') ||
+        (event.target as HTMLElement).closest('.modal-overlay');
+
+      if (clickedInsideArea === null) {
+        this.sidebarService.toggleSidebar();
+      }
     }
   }
 
@@ -68,17 +91,13 @@ export class SideBarComponent implements OnInit {
   }
 
   setChosenCategory(category: string) {
-    this.chosenCategory = category;
+    this.sidebarService.setActiveCategory(category);
     this.currentCategory.emit(this.chosenCategory);
   }
 
   isCategoryChosen(category: string): boolean {
     return category === this.chosenCategory;
   }
-
-  // handleDataAdded() {
-  //   this.isActionModalOpen = false;
-  // }
 
   handleProjectDeleted() {
     this.setChosenCategory('home');

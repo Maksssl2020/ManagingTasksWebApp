@@ -2,7 +2,7 @@ import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { AuthenticationService } from './authentication.service';
-import { Note } from '../modules/Note';
+import { Note } from '../models/Note';
 import { BehaviorSubject, of, tap } from 'rxjs';
 
 @Injectable({
@@ -16,9 +16,13 @@ export class NoteService {
   userNotes$ = this.userNotesSubject.asObservable();
 
   getUserNotes() {
+    console.log(this.authenticationService.currentUserId());
+
     return this.http.get<Note[]>(
       this.baseUrl.concat(
-        `user-notes/get-user-notes/${this.authenticationService.currentUserId()}`
+        `user-notes/get-user-notes/${
+          this.authenticationService.currentUserSubject.getValue()?.id
+        }`
       )
     );
   }

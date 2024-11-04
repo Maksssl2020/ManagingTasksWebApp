@@ -14,7 +14,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 import { TaskPriorityButtonComponent } from '../task-priority-button/task-priority-button.component';
 import { MainTaskFormComponent } from '../main-task-form/main-task-form.component';
-import { Task } from '../../modules/Task';
+import { Task } from '../../models/Task';
 
 @Component({
   selector: 'app-task-form',

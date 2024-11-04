@@ -1,14 +1,15 @@
 import { NgClass } from '@angular/common';
 import { Component, inject, input, OnInit, output } from '@angular/core';
 import { openCloseModalAnimation } from '../../animations/animations';
-import { Project } from '../../modules/Project';
+import { Project } from '../../models/Project';
 import { IconService } from '../../services/icon.service';
 import { ProjectService } from '../../services/project.service';
+import { AppModalComponent } from '../../modals/app-modal/app-modal.component';
 
 @Component({
   selector: 'app-project-details-modal',
   standalone: true,
-  imports: [NgClass],
+  imports: [NgClass, AppModalComponent],
   templateUrl: './project-details-modal.component.html',
   styleUrl: './project-details-modal.component.scss',
   animations: [openCloseModalAnimation],

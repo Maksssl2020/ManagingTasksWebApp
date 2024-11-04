@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
 import { Component, ElementRef, inject, input, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { Note } from '../../modules/Note';
+import { Note } from '../../models/Note';
 import { IconService } from '../../services/icon.service';
 import { NoteService } from '../../services/note.service';
 

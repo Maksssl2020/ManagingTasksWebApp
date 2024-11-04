@@ -10,6 +10,10 @@ header {
   font-weight: bold;
   text-transform: uppercase;
   border-bottom: 2px solid #232125;
+
+  @media (max-width: $small) {
+    padding: 0 10px;
+  }
 }
 
 h1 {
@@ -42,6 +46,10 @@ h1 {
 
   @media (max-width: $small) {
     gap: 8px;
+  }
+
+  &:hover {
+    cursor: pointer;
   }
 }
 
@@ -105,6 +113,7 @@ h1 {
   @media (max-width: $small) {
     width: 30px;
     height: 30px;
+    border-width: 1px;
   }
 }
 

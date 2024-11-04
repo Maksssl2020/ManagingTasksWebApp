@@ -1,14 +1,6 @@
 @import "../../../variables.scss";
 @import "../../../styles.scss";
 
-.modal-container {
-  height: 550px;
-
-  @media (min-width: $medium) {
-    width: 750px;
-  }
-}
-
 .icon-button {
   position: absolute;
   right: 0;

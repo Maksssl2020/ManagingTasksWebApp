@@ -1,13 +1,5 @@
-@import "../../variables.scss";
-@import "../../styles.scss";
-
-.modal-container {
-  height: 600px;
-
-  @media (min-width: $extra-large-2) {
-    width: 950px;
-  }
-}
+@import "../../../variables.scss";
+@import "../../../styles.scss";
 
 .modal-header {
   width: 100%;

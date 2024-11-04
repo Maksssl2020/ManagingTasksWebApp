@@ -7,6 +7,10 @@
   background-color: transparent;
   display: flex;
   align-items: center;
+
+  @media (max-width: $small) {
+    padding: 0 10px;
+  }
 }
 
 .project-title {

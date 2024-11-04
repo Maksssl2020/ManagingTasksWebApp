@@ -7,7 +7,7 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { Task } from '../../modules/Task';
+import { Task } from '../../models/Task';
 import { TaskPriorityButtonComponent } from '../task-priority-button/task-priority-button.component';
 
 function futureDateValidator(

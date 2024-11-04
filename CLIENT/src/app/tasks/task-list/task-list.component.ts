@@ -9,7 +9,7 @@ import {
   output,
   SimpleChanges,
 } from '@angular/core';
-import { Task } from '../../modules/Task';
+import { Task } from '../../models/Task';
 import { ProjectBannerComponent } from '../../projects/project-banner/project-banner.component';
 import { TaskService } from '../../services/task.service';
 import { EditTaskModalComponent } from '../edit-task-modal/edit-task-modal.component';

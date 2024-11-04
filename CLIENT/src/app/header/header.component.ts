@@ -35,4 +35,8 @@ export class HeaderComponent implements OnInit {
   toggleSidebar() {
     this.sidebarService.toggleSidebar();
   }
+
+  onLogoClick() {
+    this.sidebarService.setActiveCategory('all');
+  }
 }

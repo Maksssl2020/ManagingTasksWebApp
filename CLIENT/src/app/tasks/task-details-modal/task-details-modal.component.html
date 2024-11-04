@@ -1,16 +1,18 @@
-<div class="modal-overlay" [@openCloseModal]="isModalOpen ? 'open' : 'close'">
-  <div class="modal-container">
-    <button (click)="handleCloseModal()" class="icon-button">
-      <i [ngClass]="cancelIcon" class="icon"></i>
-    </button>
-    <h1 class="details-title">{{ chosenTaskData?.title }}</h1>
-    <div class="data-container">
-      @for (data of modalData; track $index) {
-      <div class="details-item">
-        <label>{{ data.label }}:</label>
-        <p>{{ data.taskData | capitalizeFirstLetter }}</p>
-      </div>
-      }
+<app-app-modal
+  [isModalOpen]="isModalOpen"
+  [modalContainerClass]="'medium-modal'"
+  (close)="handleCloseModal()"
+>
+  <button (click)="handleCloseModal()" class="icon-button">
+    <i [ngClass]="cancelIcon" class="icon"></i>
+  </button>
+  <h1 class="details-title">{{ chosenTaskData?.title }}</h1>
+  <div class="data-container">
+    @for (data of modalData; track $index) {
+    <div class="details-item">
+      <label>{{ data.label }}:</label>
+      <p>{{ data.taskData | capitalizeFirstLetter }}</p>
     </div>
+    }
   </div>
-</div>
+</app-app-modal>

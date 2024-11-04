@@ -1,0 +1,14 @@
+<app-app-modal
+  [isModalOpen]="isModalOpen"
+  modalContainerClass="delete-modal"
+  (close)="handleCancel()"
+>
+  <h1 class="delete-title">Warning!</h1>
+  <p class="delete-subtitle">
+    Are you sure you want do delete a project with all it's tasks?
+  </p>
+  <div class="buttons-container">
+    <button (click)="handleCancel()" class="button">CANCEL</button>
+    <button (click)="handleDelete()" class="button">DELETE</button>
+  </div>
+</app-app-modal>

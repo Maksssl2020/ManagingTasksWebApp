@@ -49,10 +49,6 @@ h2 {
   @media (max-width: $large) {
     font-size: 28px;
   }
-
-  @media (max-width: $medium) {
-    margin-left: auto;
-  }
 }
 
 .categories-container {
@@ -70,12 +66,6 @@ h2 {
 
   @media (max-width: $large) {
     font-size: 16px;
-  }
-
-  @media (max-width: $medium) {
-    margin-left: auto;
-    margin-right: 40px;
-    padding-left: 0;
   }
 }
 .tasks-subcategories-list {

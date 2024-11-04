@@ -2,8 +2,8 @@ import { HttpClient, HttpParams, HttpStatusCode } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { of, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Task } from '../modules/Task';
-import { TaskUpdateRequest } from '../modules/TaskUpdateRequest';
+import { Task } from '../models/Task';
+import { TaskUpdateRequest } from '../models/TaskUpdateRequest';
 import { AuthenticationService } from './authentication.service';
 
 @Injectable({

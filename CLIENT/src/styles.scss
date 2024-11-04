@@ -180,11 +180,22 @@ body {
   align-items: center;
   transition: all 0.3s ease-in-out;
 
+  @media (max-width: $small) {
+    border-width: 1px;
+  }
+
   &:hover {
     -webkit-text-fill-color: $custom-white-color-100;
-    border: 2px solid $custom-white-color-100;
     cursor: pointer;
     background-color: #e91e63;
+
+    @media (min-width: $small) {
+      border: 2px solid $custom-white-color-100;
+    }
+
+    @media (max-width: $small) {
+      border: 1px solid $custom-white-color-100;
+    }
 
     @extend .background-gradient;
   }
@@ -321,8 +332,19 @@ body {
   cursor: pointer;
   transition: color 0.3s ease-in-out, border 0.3s ease-in-out;
 
+  @media (max-width: $small) {
+    border: 1px solid $custom-gray-color-100;
+  }
+
   &:hover {
-    border: 2px solid $custom-white-color-100;
+    @media (min-width: $small) {
+      border: 2px solid $custom-white-color-100;
+    }
+
+    @media (max-width: $small) {
+      border: 1px solid $custom-white-color-100;
+    }
+
     color: $custom-white-color-100;
   }
 }

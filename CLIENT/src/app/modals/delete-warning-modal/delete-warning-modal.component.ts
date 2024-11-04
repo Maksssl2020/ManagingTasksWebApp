@@ -1,10 +1,11 @@
 import { Component, OnInit, output } from '@angular/core';
-import { openCloseModalAnimation } from '../animations/animations';
+import { openCloseModalAnimation } from '../../animations/animations';
+import { AppModalComponent } from '../app-modal/app-modal.component';
 
 @Component({
   selector: 'app-delete-warning-modal',
   standalone: true,
-  imports: [],
+  imports: [AppModalComponent],
   templateUrl: './delete-warning-modal.component.html',
   styleUrl: './delete-warning-modal.component.scss',
   animations: [openCloseModalAnimation],
